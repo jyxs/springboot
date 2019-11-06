@@ -1,5 +1,7 @@
 package com.ai2331.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +19,17 @@ import com.ai2331.service.T1Service;
 @RestController
 @RequestMapping("/t1")
 public class T1Controller {
+	private Logger logger=LoggerFactory.getLogger(T1Controller.class);
 	@Autowired
 	private T1Service service;
 
 	@PostMapping("/list")
 	public Page<T1> list(@RequestBody PageX pager) {
-
+		logger.debug(">>>>debug,list");
+		logger.warn(">>>>>warn,list");
+		logger.info(">>>>>info,list");
+		logger.error(System.getProperty("user.home") + " ===== error");
+		
 		return service.list(pager);
 	}
 
