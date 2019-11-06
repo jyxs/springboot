@@ -1,2 +1,5 @@
 spring boot:2.2.0
 mysql:8.0
+
+backend采用thymleaf
+web采用前后端分离
