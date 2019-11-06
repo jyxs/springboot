@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
-public class WebAppRun {
+public class BackendAppRun {
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder().web(WebApplicationType.SERVLET).sources(WebAppRun.class).run(args);
+		new SpringApplicationBuilder().web(WebApplicationType.SERVLET).sources(BackendAppRun.class).run(args);
 	}
 }
