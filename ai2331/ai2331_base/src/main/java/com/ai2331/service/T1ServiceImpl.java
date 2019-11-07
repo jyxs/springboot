@@ -27,7 +27,7 @@ public class T1ServiceImpl implements T1Service {
 
 	@Override
 	public T1 insert(T1 t) {
-		return dao.save(t);
+		 return dao.save(t);
 	}
 
 	@Override
