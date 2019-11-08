@@ -5,5 +5,4 @@ backend采用thymleaf
 web采用前后端分离
 
 认证框架
-web：spring security
-backend:shiro
+backend:spring security
