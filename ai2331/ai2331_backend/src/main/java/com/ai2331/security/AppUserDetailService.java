@@ -1,5 +1,7 @@
 package com.ai2331.security;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,12 @@ public class AppUserDetailService implements UserDetailsService {
 		if (null == u) {
 			throw new UsernameNotFoundException("用户不存在");
 		}
-		u.setPwd(new BCryptPasswordEncoder().encode(u.getPwd()));
+		try {
+			u.setPwd(new BCryptPasswordEncoder(4,SecureRandom.getInstanceStrong()).encode(u.getPwd()));
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("user:list"));
 		authorities.add(new SimpleGrantedAuthority("user:add"));
@@ -35,5 +42,4 @@ public class AppUserDetailService implements UserDetailsService {
 
 		return new org.springframework.security.core.userdetails.User(username, u.getPwd(), authorities);
 	}
-
 }

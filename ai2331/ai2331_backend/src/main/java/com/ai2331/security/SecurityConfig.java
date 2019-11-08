@@ -8,6 +8,9 @@
 
 package com.ai2331.security;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	public PasswordEncoder  passwordEncoder() {
-		return new BCryptPasswordEncoder();
+	public PasswordEncoder  passwordEncoder() throws NoSuchAlgorithmException {
+		return new BCryptPasswordEncoder(4,SecureRandom.getInstanceStrong());
 	}
 }
