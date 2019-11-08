@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.passwordParameter("pwd")
 				.permitAll()
 			.and().logout()
+				.logoutUrl("/logout")
 				.logoutSuccessUrl("/")
 				.permitAll()
 			.and()
