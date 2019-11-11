@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+</head>
+<body>
+	<div id="resultx"></div>
+	<a th:href="@{/sys/admin/save}">添加用户</a>
+</body>
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+	  	  method: "POST",
+	  	  url: "[[@{/sys/admin/grid}]]"
+	  	})
+	  	.done(function( msg ) {
+	  		console.info( "Data Saved: " + msg );
+	  	});
+	});
+</script>
+</html>

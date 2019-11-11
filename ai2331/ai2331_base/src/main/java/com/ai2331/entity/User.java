@@ -4,9 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-import org.hibernate.annotations.Table;
-@Table(appliesTo = "user")
+@Table(name = "user")
 @Entity
 public class User {
 	@Id

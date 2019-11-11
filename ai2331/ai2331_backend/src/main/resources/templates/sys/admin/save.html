@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+</head>
+<body>
+	<form id="user_info">
+		<p th:text="用户名："/><input type="text" name="username" id="username" placeholder="用户名">
+		<p th:text="密码："/><input type="text" name="password" id="password">
+		<p th:text="全名："/><input type="text" name="fullname" id="fullname">
+		<p th:text="职位抬头："/><input type="text" name="title" id="title">
+		<p th:text="邮件："/><input type="text" name="email" id="email">
+		<p th:text="手机："/><input type="text" name="mobilephone" id="mobilephone">
+		<p th:text="固定电话："/><input type="text" name="telephone" id="telephone">
+		<p th:text="IM联系方式："/><input type="text" name="im" id="im">
+		<p th:text="是否有效："/><input type="checkbox" name="enabled" id="enabled" value="1" checked="checked">
+		<input type="submit" value="提交">
+	</form>
+</body>
+<script type="text/javascript">
+	$(function(){
+		$("#user_info").submit(function(){
+			event.preventDefault();
+			$.ajax({
+		  	  method: "POST",
+		  	  url: "[[@{/sys/admin/save}]]",
+		  	  data:$( this ).serialize()
+		  	})
+		  	.done(function( msg ) {
+		  		console.info( "Data Saved: " + msg );
+		  	});
+		});
+	});
+</script>
+</html>

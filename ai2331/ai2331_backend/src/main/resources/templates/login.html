@@ -10,15 +10,16 @@
 	<form id="login_form" action="/login" method="post">
 		<p th:text="用户名："/><input type="text" name="uname" id="uname" placeholder="用户名">
 		<p th:text="密码："/><input type="password" name="pwd" id="pwd">
+		<p th:text="记住我："/><input type="checkbox" name="rememberMe" id="rememberMe" value="1">
 		<input type="submit" value="提交">
-	</form>
+	</form><img alt="" th:src="@{/images/1.png}">
 <script type="text/javascript">
 	$(function(){
 		$("#login_form").submit(function(){
 			event.preventDefault();
 		  	$.ajax({
 		  	  method: "POST",
-		  	  url: "/login",
+		  	  url: "[[@{/login}]]",
 		  	  data: $( this ).serialize()
 		  	})
 		  	.done(function( msg ) {
