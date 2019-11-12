@@ -25,7 +25,8 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 @Configuration
 public class AppShiroConfig {
-	private Logger log=LoggerFactory.getLogger(AppShiroConfig.class);
+	private Logger log = LoggerFactory.getLogger(AppShiroConfig.class);
+
 	@Bean
 	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();

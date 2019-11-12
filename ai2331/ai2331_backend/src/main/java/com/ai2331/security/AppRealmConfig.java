@@ -26,6 +26,7 @@ import com.ai2331.sys.dao.RoleDAO;
 import com.ai2331.sys.entity.AdminUser;
 import com.ai2331.sys.entity.Resource;
 import com.ai2331.sys.entity.Role;
+import com.alibaba.druid.support.json.JSONUtils;
 
 public class AppRealmConfig extends AuthorizingRealm {
 	private Logger loger = LoggerFactory.getLogger(AppRealmConfig.class);
@@ -52,8 +53,10 @@ public class AppRealmConfig extends AuthorizingRealm {
 			roleIds.add(role.getId());
 		}
 		List<Resource> resources = resourceDAO.findByRoleIds(roleIds);
-		authorizationInfo
-				.addStringPermissions(resources.stream().map(Resource::getPrivCode).collect(Collectors.toSet()));
+		authorizationInfo.addStringPermissions(resources.stream().map(Resource::getPrivCode).collect(Collectors.toSet()));
+
+		loger.debug("角色集合：" + JSONUtils.toJSONString(authorizationInfo.getRoles()));
+		loger.debug("权限集合：" + JSONUtils.toJSONString(authorizationInfo.getStringPermissions()));
 		return authorizationInfo;
 	}
 
@@ -73,8 +76,7 @@ public class AppRealmConfig extends AuthorizingRealm {
 			throw new LockedAccountException();
 		}
 		// 传入用户信息，对用户验证
-		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getPassword(),
-				ByteSource.Util.bytes(user.getUsername()), getName());
+		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getUsername()), getName());
 		return authenticationInfo;
 	}
 
