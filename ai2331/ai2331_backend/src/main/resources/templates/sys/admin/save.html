@@ -30,7 +30,11 @@
 		  	  data:$( this ).serialize()
 		  	})
 		  	.done(function( msg ) {
-		  		console.info( "Data Saved: " + msg );
+		  		if(msg.code==1){
+		  			window.location.href='[[@{/sys/admin/query}]]'
+		  		}else{
+		  			console.info( msg.message );
+		  		}
 		  	});
 		});
 	});

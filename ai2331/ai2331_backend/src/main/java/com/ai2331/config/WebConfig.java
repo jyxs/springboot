@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.ai2331.interceptor.WebAppInterceptor;
+import com.ai2331.interceptor.AppInterceptor;
 
 /**
  * @author jingyu
@@ -16,7 +16,7 @@ import com.ai2331.interceptor.WebAppInterceptor;
 public class WebConfig implements WebMvcConfigurer {
 
 	@Resource
-	private WebAppInterceptor appInterceptor;
+	private AppInterceptor appInterceptor;
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {

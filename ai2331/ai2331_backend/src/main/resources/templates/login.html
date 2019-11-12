@@ -23,7 +23,10 @@
 		  	  data: $( this ).serialize()
 		  	})
 		  	.done(function( msg ) {
-		  		alert( "Data Saved: " + msg );
+		  		if(msg.code=='1'){
+		  			console.info('xxxxxxx');
+		  			window.location.href='[[@{/portal}]]'
+		  		}
 		  	});
 		});
 	});
