@@ -1,6 +1,7 @@
 package com.ai2331.common.entity;
 
-import org.springframework.util.ObjectUtils;
+import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -58,8 +59,16 @@ public class ResultX {
 		this.datas = datas;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public int isDataEmpty() {
-		return null == datas || ObjectUtils.isEmpty(datas) ? 1 : 0;
+		if (null == datas)
+			return 1;
+		if (datas instanceof List && ((List) datas).isEmpty()) {
+			return 1;
+		} else if (datas instanceof Map && ((Map) datas).isEmpty()) {
+			return 1;
+		}
+		return 0;
 	}
 
 	public enum ResultXCode {

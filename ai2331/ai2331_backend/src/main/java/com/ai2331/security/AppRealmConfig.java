@@ -1,6 +1,5 @@
 package com.ai2331.security;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ai2331.common.entity.AppConstants;
+import com.ai2331.AppConstants;
 import com.ai2331.sys.dao.AdminUserDAO;
 import com.ai2331.sys.dao.ResourceDAO;
 import com.ai2331.sys.dao.RoleDAO;

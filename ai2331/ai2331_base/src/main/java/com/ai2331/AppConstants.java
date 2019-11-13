@@ -1,4 +1,4 @@
-package com.ai2331.common.entity;
+package com.ai2331;
 
 public interface AppConstants {
 

@@ -19,7 +19,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.ai2331.common.entity.AppConstants;
+import com.ai2331.AppConstants;
 import com.ai2331.common.entity.PageX;
 import com.ai2331.sys.dao.AdminUserDAO;
 import com.ai2331.sys.entity.AdminUser;
