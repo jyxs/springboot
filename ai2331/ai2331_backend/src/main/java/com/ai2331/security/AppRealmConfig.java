@@ -1,5 +1,6 @@
 package com.ai2331.security;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -53,10 +54,11 @@ public class AppRealmConfig extends AuthorizingRealm {
 			roleIds.add(role.getId());
 		}
 		List<Resource> resources = resourceDAO.findByRoleIds(roleIds);
-		authorizationInfo.addStringPermissions(resources.stream().map(Resource::getPrivCode).collect(Collectors.toSet()));
 
+		authorizationInfo.addStringPermissions(resources.stream().filter(item -> null != item.getPrivCode()).map(Resource::getPrivCode).collect(Collectors.toSet()));
 		loger.debug("角色集合：" + JSONUtils.toJSONString(authorizationInfo.getRoles()));
 		loger.debug("权限集合：" + JSONUtils.toJSONString(authorizationInfo.getStringPermissions()));
+
 		return authorizationInfo;
 	}
 

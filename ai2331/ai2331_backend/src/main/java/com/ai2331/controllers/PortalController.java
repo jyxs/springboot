@@ -64,4 +64,48 @@ public class PortalController extends BaseController {
 		}
 		return new ResultX(ResultXCode.SUCCESS, "验证成功");
 	}
+
+//	private void initUrlPermit() {
+//		// 初始化角色，权限
+//		List<Role> roles = roleDAO.findRolesByUserId(this.currentUser().getId());
+//		Set<Integer> roleIds = roles.stream().map(Role::getId).collect(Collectors.toSet());
+//
+//		List<Resource> resources = resourceDAO.findByRoleIds(roleIds);
+//		Map<String, String> filterMap = new HashMap<String, String>();
+//		filterMap.put("/css/**", "anon");
+//		filterMap.put("/images/**", "anon");
+//		filterMap.put("/js/**", "anon");
+//		filterMap.put("/login", "anon");
+//		filterMap.put("/logout", "logout");// 配置退出 过滤器,其中的具体的退出代码Shiro已经实现
+//		filterMap.put("/**", "authc");// 过滤链定义，从上向下顺序执行，一般将/**放在最为下边
+//
+//		updatePermission(filterMap, resources);
+//	}
+//
+//	private synchronized void updatePermission(Map<String, String> filterMap, List<Resource> resources) {
+//		AbstractShiroFilter shiroFilter = null;
+//		try {
+//			shiroFilter = (AbstractShiroFilter) shiroFilterFactoryBean.getObject();
+//			// 获取过滤管理器
+//			PathMatchingFilterChainResolver filterChainResolver = (PathMatchingFilterChainResolver) shiroFilter.getFilterChainResolver();
+//			// 清空拦截管理器中的存储
+//			DefaultFilterChainManager defaultFilterChainManager = (DefaultFilterChainManager) filterChainResolver.getFilterChainManager();
+//			defaultFilterChainManager.getFilterChains().clear();
+//
+//			shiroFilterFactoryBean.getFilterChainDefinitionMap().clear();
+//
+//			Map<String, String> chains = shiroFilterFactoryBean.getFilterChainDefinitionMap();
+//			chains.putAll(filterMap);
+//			shiroFilterFactoryBean.setFilterChainDefinitionMap(chains);
+//			for (Resource resource : resources) {
+//				if (StringUtils.isEmpty(resource.getUrl()) || StringUtils.isEmpty(resource.getPrivCode())) {
+//					continue;
+//				}
+//				defaultFilterChainManager.createChain(resource.getUrl(), resource.getPrivCode());
+//			}
+//			loger.debug(">>>>>>>>>>>>>>>>>>>>>>>Resources加入url拦截完毕");
+//		} catch (Exception e) {
+//			loger.error(">>>>>>>>>>>>>>>>>>>>>>>resources加入url拦截出错");
+//		}
+//	}
 }

@@ -1,5 +1,6 @@
 package com.ai2331.controllers;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ public class T1Controller {
 	private T1Service service;
 
 	@PostMapping("/list")
+	@RequiresPermissions(value ="t1-list")
 	public Page<T1> list(@RequestBody PageX pager) {
 
 		return service.list(pager);

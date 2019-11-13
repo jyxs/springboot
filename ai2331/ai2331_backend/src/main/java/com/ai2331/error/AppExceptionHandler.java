@@ -3,6 +3,7 @@ package com.ai2331.error;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +23,9 @@ public class AppExceptionHandler {
 		}
 		if (StringUtils.isEmpty(msg)) {
 			msg = e.toString();
+		}
+		if (e instanceof UnauthorizedException) {
+			return new ResultX(ResultXCode.UNAUTHORIZED, "没有权限");
 		}
 		return new ResultX(ResultXCode.ERROR, msg);
 	}

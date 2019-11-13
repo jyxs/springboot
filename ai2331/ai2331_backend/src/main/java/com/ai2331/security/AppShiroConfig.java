@@ -33,7 +33,7 @@ public class AppShiroConfig {
 		shiroFilterFactoryBean.setSecurityManager(securityManager); // 设置安全管理器
 		shiroFilterFactoryBean.setLoginUrl("/login");// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
 		shiroFilterFactoryBean.setSuccessUrl("/"); // 登录成功后要跳转的链接
-		shiroFilterFactoryBean.setUnauthorizedUrl("/error/403");// 未授权界面;
+		shiroFilterFactoryBean.setUnauthorizedUrl("/error");// 未授权界面;
 		Map<String, String> filterMap = new HashMap<String, String>();
 		filterMap.put("/css/**", "anon");
 		filterMap.put("/images/**", "anon");
@@ -41,6 +41,7 @@ public class AppShiroConfig {
 		filterMap.put("/login", "anon");
 		filterMap.put("/logout", "logout");// 配置退出 过滤器,其中的具体的退出代码Shiro已经实现
 		filterMap.put("/**", "authc");// 过滤链定义，从上向下顺序执行，一般将/**放在最为下边
+
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 		return shiroFilterFactoryBean;
 	}
