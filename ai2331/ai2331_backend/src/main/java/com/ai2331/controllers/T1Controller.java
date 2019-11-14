@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ai2331.common.entity.PageX;
 import com.ai2331.common.entity.ResultX;
@@ -22,7 +23,7 @@ public class T1Controller {
 	private T1Service service;
 
 	@PostMapping("/list")
-	@RequiresPermissions(value ="t1-list")
+	@RequiresPermissions(value = "t1-list")
 	public Page<T1> list(@RequestBody PageX pager) {
 
 		return service.list(pager);
@@ -38,13 +39,18 @@ public class T1Controller {
 		service.delete(id);
 		return "ok";
 	}
-	
+
 	@GetMapping("/t/e")
 	public Object testException() {
 //		T1 t=null;
 //		t.getCreateTime();
-		//throw new Exception("自己抛出异常");
-		int i = 1/0;
+		// throw new Exception("自己抛出异常");
+		int i = 1 / 0;
 		return new ResultX();
+	}
+
+	@GetMapping("thymleaftest")
+	public ModelAndView thymeleafTest() {
+		return new ModelAndView("thymleaf/test");
 	}
 }

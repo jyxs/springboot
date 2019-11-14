@@ -23,6 +23,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+
 @Configuration
 public class AppShiroConfig {
 	private Logger log = LoggerFactory.getLogger(AppShiroConfig.class);
@@ -39,6 +41,8 @@ public class AppShiroConfig {
 		filterMap.put("/images/**", "anon");
 		filterMap.put("/js/**", "anon");
 		filterMap.put("/login", "anon");
+		filterMap.put("/t1/thymleaftest", "anon");
+		filterMap.put("/t2/thymleaftest", "anon");
 		filterMap.put("/logout", "logout");// 配置退出 过滤器,其中的具体的退出代码Shiro已经实现
 		filterMap.put("/**", "authc");// 过滤链定义，从上向下顺序执行，一般将/**放在最为下边
 
@@ -142,6 +146,15 @@ public class AppShiroConfig {
 		System.out.println(key);
 		return key;
 
+	}
+	
+	/**
+	 * shiro对thyeleaf的支持
+	 * @return
+	 */
+	@Bean
+	public ShiroDialect shiroDialect() {
+		return new ShiroDialect();
 	}
 
 	public static void main(String[] args) throws NoSuchAlgorithmException {

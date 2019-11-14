@@ -24,4 +24,9 @@ public class T2Controller {
 		mv.setViewName("/t2/list");
 		return mv;
 	}
+	
+	@GetMapping("thymleaftest")
+	public String thymeleafTest() {
+		return "thymleaf/test";
+	}
 }
