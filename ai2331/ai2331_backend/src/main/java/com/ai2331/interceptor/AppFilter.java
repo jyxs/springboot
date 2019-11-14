@@ -19,7 +19,6 @@ public class AppFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		logger.info(">>>>>>>>>>>>>>>>>doFilter");
-		response.setContentType("application/json");
 		chain.doFilter(request, response);
 	}
 }

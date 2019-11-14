@@ -72,7 +72,7 @@ public class ResultX {
 	}
 
 	public enum ResultXCode {
-		SUCCESS("1"), FAIL("0"), ERROR("500"), UNAUTHORIZED("403"), NOTFOUND("400");
+		SUCCESS("1"), FAIL("0"), ERROR("500"), UNAUTHORIZED("403"), NOTFOUND("404");
 		private String code;
 
 		ResultXCode(String code) {
