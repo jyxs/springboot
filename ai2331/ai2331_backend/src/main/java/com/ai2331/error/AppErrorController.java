@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import com.ai2331.common.entity.ResultX;
 import com.ai2331.util.WebConstants;
 
 /**
@@ -51,7 +50,6 @@ public class AppErrorController implements ErrorController {
 			}
 		} else {
 			view.setView(new MappingJackson2JsonView());
-			ResultX resultx = new ResultX();
 			if (statusCode.startsWith("4")) {
 				if (statusCode.contentEquals("403")) {
 					msg = "没有权限";
