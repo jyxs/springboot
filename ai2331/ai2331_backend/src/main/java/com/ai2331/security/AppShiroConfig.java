@@ -40,6 +40,7 @@ public class AppShiroConfig {
 		filterMap.put("/css/**", "anon");
 		filterMap.put("/images/**", "anon");
 		filterMap.put("/js/**", "anon");
+		filterMap.put("/fonts/**", "anon");
 		filterMap.put("/login", "anon");
 		filterMap.put("/error/400", "anon");
 		filterMap.put("/error/403", "anon");
