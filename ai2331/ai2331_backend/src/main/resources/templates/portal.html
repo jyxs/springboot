@@ -6,13 +6,7 @@
         <title>懒猪导</title>
             
         <!-- CSS -->
-        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-        <link th:href="@{/css/animate.min.css}" rel="stylesheet">
-        <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
-        <link th:href="@{/css/form.css}" rel="stylesheet">
-        <link th:href="@{/css/calendar.css}" rel="stylesheet">
-        <link th:href="@{/css/style.css}" rel="stylesheet">
-        <link th:href="@{/css/icons.css}" rel="stylesheet">
+        <div th:replace="~{inc/css :: common}"></div>
     </head>
     <body id="skin-blur-ocean">
         <header id="header" class="media">
@@ -155,9 +149,10 @@
                 </div>
             </section>
         </section>
+        
         <div id="context-menu">
           <ul class="dropdown-menu" style="border-radius: 0 0 3px 3px !important;">
-            <li><a href="javascript:closeAll();addHomeTab('index.html');">关闭所有</a></li>
+            <li><a href="javascript:closeAll();addHomeTab('@{/portal}');">关闭所有</a></li>
             <li><a href="javascript:closeLeft();">关闭左侧</a></li>
             <li><a href="javascript:closeRight();">关闭右侧</a></li>
             <li><a href="javascript:closeOther();">关闭其他</a></li>
@@ -165,18 +160,6 @@
         </div>
         <!-- Javascript Libraries -->
         <!-- jQuery -->
-        <script th:src="@{/js/jquery.min.js}"></script> <!-- jQuery Library -->
-        <script th:src="@{/js/jquery-ui.min.js}"></script> <!-- jQuery UI -->
-        <script th:src="@{/js/jquery.easing.1.3.js}"></script> <!-- jQuery Easing - Requirred for Lightbox + Pie Charts-->
-        <script th:src="@{/js/bootstrap-contextmenu.js}"></script>
-        <script th:src="@{/js/tab.js}"></script>
-        <!-- Bootstrap -->
-        <script th:src="@{/js/bootstrap.min.js}"></script>
-        <!-- UX -->
-        <script th:src="@{/js/scroll.min.js}"></script> <!-- Custom Scrollbar -->
-        <!-- Other -->
-        <script th:src="@{/js/calendar.min.js}"></script> <!-- Calendar -->
-        <!-- All JS functions -->
-        <script th:src="@{/js/portal.js}"></script>
+        <div th:replace="~{inc/js :: common}"></div>
     </body>
 </html>

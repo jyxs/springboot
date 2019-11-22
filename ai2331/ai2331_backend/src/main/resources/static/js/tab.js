@@ -125,6 +125,7 @@ function addTab(options) {
     option.tabContentMainName="nav_tab_content";
     option.tabTitle='Home';
     option.tabId='000';
-    option.tabUrl=homeUrl;
+    option.tabUrl=$cp+"portal";
+    console.info(option.tabUrl);
     addTab(option);
  }
