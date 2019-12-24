@@ -8,9 +8,42 @@
   <packaging>jar</packaging>
   <artifactId>common_base</artifactId>
   <dependencies>
+  	
+  	<dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+  
+  	<!-- cache -->
+  	<dependency>
+      <groupId>net.spy</groupId>
+      <artifactId>spymemcached</artifactId>
+      <version>2.12.3</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-beans</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+	<dependency>
+	    <groupId>org.ehcache</groupId>
+	    <artifactId>ehcache</artifactId>
+	    <scope>provided</scope>
+	</dependency>
+	
+  	<!-- log4j2 -->
+    <dependency>
+  		<groupId>org.springframework.boot</groupId>
+  		<artifactId>spring-boot-starter-log4j2</artifactId>
+  		<scope>provided</scope>
+  	</dependency>
+  	
   	<dependency>
     	<groupId>org.apache.commons</groupId>
     	<artifactId>commons-lang3</artifactId>
+    	<scope>provided</scope>
     </dependency>
   	<!-- jackson -->
   	<dependency>

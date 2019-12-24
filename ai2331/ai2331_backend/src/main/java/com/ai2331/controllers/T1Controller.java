@@ -54,9 +54,9 @@ public class T1Controller {
 		return new ModelAndView("thymleaf/test");
 	}
 	
-	public static void main(String[] args) {
-		for (int i = 0; i <10; i++) {
-			System.out.println(Math.floorMod(i, 2));
-		}
+	@GetMapping("cachetest")
+	public String cachetest() {
+		service.cacheMethod();
+		return "ok";
 	}
 }

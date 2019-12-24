@@ -13,5 +13,5 @@ public interface T1Service {
 
 	Page<T1> list(PageX pr);
 
-
+	void cacheMethod();
 }
