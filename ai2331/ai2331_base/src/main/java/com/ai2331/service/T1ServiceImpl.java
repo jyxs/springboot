@@ -1,7 +1,6 @@
 package com.ai2331.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +19,7 @@ public class T1ServiceImpl implements T1Service {
 	@Autowired
 	private T1DAO dao;
 	
-	@Autowired
+	@Autowired(required = false)
 	private CacheService cache;
 	
 	@Override

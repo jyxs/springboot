@@ -14,7 +14,7 @@ import com.ai2331.common.cache.impl.RedisCacheService;
 @RequestMapping("redis")
 public class RedisController {
 
-	@Autowired
+	@Autowired(required = false)
 	private RedisCacheService rs;
 	@GetMapping("test")
 	public Object test(@RequestParam("k") String k,@RequestParam("v") String v) {
