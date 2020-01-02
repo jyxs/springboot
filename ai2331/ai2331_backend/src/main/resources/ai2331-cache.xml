@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- simpleCache -->
+	<!-- <bean id="simpleCache" class="com.ai2331.common.cache.impl.SimpleCacheService"></bean> -->
+
+	<!-- mapCache -->
+	<!-- <bean id="mapCache" class="com.ai2331.common.cache.impl.MapCacheService"></bean> -->
+
+	<!-- ehcahce -->
+	<!-- <bean id="ehcache" class="com.ai2331.common.cache.impl.EhcacheService"></bean> -->
+
+	<!-- memcached -->
+	<!-- <bean id="memcached" class="com.ai2331.common.cache.impl.MemcachedService"> -->
+	<!-- <property name="addresses" value="localhost:11211"/> -->
+	<!-- <property name="timeout" value="3"/> -->
+	<!-- <property name="defaultTTL" value="300000"/> -->
+	<!-- </bean> -->
+	
+	<!-- redis -->
+	<bean id="redisCache" class="com.ai2331.common.cache.impl.RedisCacheService">
+		<property name="redisTemplate" ref="defaultTemplate"/>
+	</bean>
+	<!-- 配置jedis连接池 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<!-- 最大连接数 -->
+		<property name="maxTotal" value="30" />
+		<!-- 最大空闲连接数 -->
+		<property name="maxIdle" value="10" />
+		<!-- 每次释放连接的最大数目 -->
+		<property name="numTestsPerEvictionRun" value="1024" />
+		<!-- 释放连接的扫描间隔（毫秒） -->
+		<property name="timeBetweenEvictionRunsMillis" value="30000" />
+		<!-- 连接最小空闲时间 -->
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<!-- 连接空闲多久后释放, 当空闲时间>该值 且 空闲连接>最大空闲连接数 时直接释放 -->
+		<property name="softMinEvictableIdleTimeMillis" value="10000" />
+		<!-- 获取连接时的最大等待毫秒数,小于零:阻塞不确定的时间,默认-1 -->
+		<property name="maxWaitMillis" value="1500" />
+		<!-- 在获取连接的时候检查有效性, 默认false -->
+		<property name="testOnBorrow" value="true" />
+		<!-- 在空闲时检查有效性, 默认false -->
+		<property name="testWhileIdle" value="true" />
+		<!-- 连接耗尽时是否阻塞, false报异常,ture阻塞直到超时, 默认true -->
+		<property name="blockWhenExhausted" value="false" />
+	</bean>
+	<!--redis链接密码-->
+    <bean id="redisPassword" class="org.springframework.data.redis.connection.RedisPassword">
+        <constructor-arg name="thePassword" value="123456"></constructor-arg>
+    </bean>
+    <bean id="redisStandaloneConfiguration" class="org.springframework.data.redis.connection.RedisStandaloneConfiguration">
+        <property name="hostName" value="localhost"/>
+        <property name="port" value="6379"/>
+        <property name="password" ref="redisPassword" />
+        <property name="database" value="1"/>
+    </bean>
+    
+	<!--配置JedisConnectionFactory-->
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+        <constructor-arg name="standaloneConfig" ref="redisStandaloneConfiguration"/>
+    </bean>
+    <!-- 使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值（默认使用JDK的序列化方式） -->
+    <bean id="jackson2JsonRedisSerializer" class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+    <!-- 使用String的序列化方式-->
+    <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+    <!-- 使用JDK的序列化方式-->
+    <bean id="jdkSerializationRedisSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+    
+    <!--配置Spring RedisTemplate-->
+    <bean id="defaultTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="enableTransactionSupport" value="false"/>
+        <property name="keySerializer" ref="stringRedisSerializer"/>
+        <property name="valueSerializer" ref="jackson2JsonRedisSerializer"/>
+        <property name="hashKeySerializer" ref="stringRedisSerializer"/>
+        <property name="hashValueSerializer" ref="jackson2JsonRedisSerializer"/>
+    </bean>
+    
+    <bean id="redisTemplate" name="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="keySerializer" ref="stringRedisSerializer" />
+        <property name="valueSerializer" ref="stringRedisSerializer" />
+        <property name="hashKeySerializer" ref="stringRedisSerializer" />
+        <property name="hashValueSerializer" ref="jackson2JsonRedisSerializer" />
+    </bean>
+    
+    <bean id="jdkredisTemplate" name="jdkredisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="keySerializer" ref="jdkSerializationRedisSerializer" />
+        <property name="valueSerializer" ref="jdkSerializationRedisSerializer" />
+        <property name="hashKeySerializer" ref="stringRedisSerializer" />
+        <property name="hashValueSerializer" ref="jackson2JsonRedisSerializer" />
+    </bean>
+    
+    <bean id="jacksonredisTemplate" name="jacksonredisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="keySerializer" ref="jackson2JsonRedisSerializer" />
+        <property name="valueSerializer" ref="jackson2JsonRedisSerializer" />
+        <property name="hashKeySerializer" ref="stringRedisSerializer" />
+        <property name="hashValueSerializer" ref="jackson2JsonRedisSerializer" />
+    </bean>
+    
+</beans>

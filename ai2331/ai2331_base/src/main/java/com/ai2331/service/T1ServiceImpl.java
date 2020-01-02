@@ -20,8 +20,7 @@ public class T1ServiceImpl implements T1Service {
 	@Autowired
 	private T1DAO dao;
 	
-	@Autowired(required = true)
-	@Qualifier("ehcache")
+	@Autowired
 	private CacheService cache;
 	
 	@Override

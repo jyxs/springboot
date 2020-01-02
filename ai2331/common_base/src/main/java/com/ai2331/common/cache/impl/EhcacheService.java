@@ -13,10 +13,7 @@ import org.ehcache.config.units.MemoryUnit;
 import org.ehcache.impl.serialization.PlainJavaSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
 
-@Service("ehcache")
 public class EhcacheService extends AbstractCacheService {
 	/**
 	 * 
@@ -67,9 +64,8 @@ public class EhcacheService extends AbstractCacheService {
 		cache.put(k.toString(), v.toString());
 	}
 
-	@Bean
 	private CacheConfiguration<String, String> createCacheConfig() {
-		ResourcePoolsBuilder pools = ResourcePoolsBuilder.newResourcePoolsBuilder().heap(maxHeapSize, MemoryUnit.MB).offheap(maxOffHeapSize, MemoryUnit.MB);
+		ResourcePoolsBuilder pools = ResourcePoolsBuilder.newResourcePoolsBuilder().heap(maxHeapSize, MemoryUnit.MB).offheap(maxOffHeapSize, MemoryUnit.MB).disk(500L, MemoryUnit.MB, false);
 		CacheConfigurationBuilder<String, String> config = CacheConfigurationBuilder.newCacheConfigurationBuilder(String.class, String.class, pools);
 		config.withValueSerializer(new PlainJavaSerializer<String>(this.getClass().getClassLoader()));
 		config.withKeySerializer(new PlainJavaSerializer<String>(this.getClass().getClassLoader()));
@@ -78,9 +74,8 @@ public class EhcacheService extends AbstractCacheService {
 		return config.build();
 	}
 
-	@Bean
 	private CacheManager createManager() {
-		return CacheManagerBuilder.newCacheManagerBuilder().build(true);
+		return CacheManagerBuilder.newCacheManagerBuilder().with(CacheManagerBuilder.persistence("./ehcache")).build(true);
 	}
 
 	@Override
@@ -94,7 +89,7 @@ public class EhcacheService extends AbstractCacheService {
 	public void exit() {
 		if (manager != null) {
 			try {
-				// manager.shutdown();
+				 manager.close();
 			} catch (Exception e) {
 				log.error("stop cache " + getCacheName() + " error:", e);
 			}

@@ -8,14 +8,10 @@ import java.util.concurrent.TimeoutException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
 
 import net.spy.memcached.AddrUtil;
 import net.spy.memcached.MemcachedClient;
 
-@Service("memcache")
 public class MemcachedService<V> extends AbstractCacheService {
 	/**
 	 * 
@@ -24,9 +20,8 @@ public class MemcachedService<V> extends AbstractCacheService {
 
 	static Logger log = LoggerFactory.getLogger(MemcachedService.class);
 
-	@Autowired
 	private MemcachedClient mcc;
-	private String addresses = "localhost:11211";
+	private String addresses;
 	private int timeout = 3; // 3 seconds
 
 	@Override
@@ -69,10 +64,11 @@ public class MemcachedService<V> extends AbstractCacheService {
 
 	@Override
 	public void init() {
+
 		System.out.println("memecached init");
+		mcc = createClient();
 	}
 
-	@Bean
 	private MemcachedClient createClient() {
 		try {
 			log.debug("memcache connected to " + addresses + ", timeout(s) = " + timeout);

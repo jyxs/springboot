@@ -8,10 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+
 
 @SuppressWarnings("rawtypes")
-@Service("simplecache")
 public class SimpleCacheService<V extends Comparable> extends AbstractCacheService {
 	/**
 	 * 

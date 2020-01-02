@@ -3,13 +3,10 @@ package com.ai2331.common.cache.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.stereotype.Service;
-
 /**
  * 没有失效机制.
  *
  */
-@Service("mapcache")
 public class MapCacheService extends AbstractCacheService {
 	/**
 	 * 
