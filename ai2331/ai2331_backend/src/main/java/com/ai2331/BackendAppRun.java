@@ -1,5 +1,6 @@
 package com.ai2331;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -8,7 +9,8 @@ import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
 @ServletComponentScan
-@ImportResource(value = "ai2331-*.xml")
+@ImportResource({"ai2331-*.xml"})
+@MapperScan(basePackages = {"com.ai2331.dao","com.ai2331.*.dao"})
 public class BackendAppRun {
 
 	public static void main(String[] args) {

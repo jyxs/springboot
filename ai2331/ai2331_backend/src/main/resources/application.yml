@@ -36,6 +36,11 @@ spring:
     encoding: UTF-8
     content-type: text/html
     cache: false
+mybatis:
+  mapper-locations: classpath*:mapper/*-mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    jdbc-type-for-null: 'null'
 server:
   port: 8082
   context-path: /

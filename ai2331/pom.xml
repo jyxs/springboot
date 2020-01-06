@@ -45,5 +45,6 @@
   	<module>ai2331_backend</module>
   	<module>ai2331_base</module>
   	<module>ai2331_web</module>
+  	<module>common_base</module>
   </modules>
 </project>

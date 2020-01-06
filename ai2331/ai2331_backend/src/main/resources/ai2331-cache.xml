@@ -3,14 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- simpleCache -->
-	<!-- <bean id="simpleCache" class="com.ai2331.common.cache.impl.SimpleCacheService"></bean> -->
+	<bean id="simpleCache" class="com.ai2331.common.cache.impl.SimpleCacheService"></bean>
 
 	<!-- mapCache -->
 	<!-- <bean id="mapCache" class="com.ai2331.common.cache.impl.MapCacheService"></bean> -->
 
 	<!-- ehcahce -->
-	<bean id="ehcache"
-		class="com.ai2331.common.cache.impl.EhcacheService"></bean>
+	<!-- <bean id="ehcache" class="com.ai2331.common.cache.impl.EhcacheService"/> -->
 
 	<!-- memcached -->
 	<!-- <bean id="memcached" class="com.ai2331.common.cache.impl.MemcachedService"> -->
