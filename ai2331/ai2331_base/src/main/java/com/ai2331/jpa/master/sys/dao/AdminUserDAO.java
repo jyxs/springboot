@@ -1,4 +1,4 @@
-package com.ai2331.sys.dao;
+package com.ai2331.jpa.master.sys.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

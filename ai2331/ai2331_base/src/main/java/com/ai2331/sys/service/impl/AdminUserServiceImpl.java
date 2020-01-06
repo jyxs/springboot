@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 
 import com.ai2331.AppConstants;
 import com.ai2331.common.entity.PageX;
-import com.ai2331.sys.dao.AdminUserDAO;
+import com.ai2331.jpa.master.sys.dao.AdminUserDAO;
 import com.ai2331.sys.entity.AdminUser;
 import com.ai2331.sys.service.AdminUserService;
 

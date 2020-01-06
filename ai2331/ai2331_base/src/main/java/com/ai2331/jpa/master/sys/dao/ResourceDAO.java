@@ -1,4 +1,4 @@
-package com.ai2331.sys.dao;
+package com.ai2331.jpa.master.sys.dao;
 
 import java.util.List;
 import java.util.Set;

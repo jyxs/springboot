@@ -1,4 +1,4 @@
-package com.ai2331.entity;
+package com.ai2331.member.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

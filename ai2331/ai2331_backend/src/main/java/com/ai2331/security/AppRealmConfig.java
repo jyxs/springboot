@@ -20,9 +20,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ai2331.AppConstants;
-import com.ai2331.sys.dao.AdminUserDAO;
-import com.ai2331.sys.dao.ResourceDAO;
-import com.ai2331.sys.dao.RoleDAO;
+import com.ai2331.jpa.master.sys.dao.AdminUserDAO;
+import com.ai2331.jpa.master.sys.dao.ResourceDAO;
+import com.ai2331.jpa.master.sys.dao.RoleDAO;
 import com.ai2331.sys.entity.AdminUser;
 import com.ai2331.sys.entity.Resource;
 import com.ai2331.sys.entity.Role;
