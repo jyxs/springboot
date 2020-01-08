@@ -17,12 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ai2331.common.entity.PageX;
 import com.ai2331.common.entity.ResultX;
-import com.ai2331.entity.T1;
 import com.ai2331.jpa.master.sys.dao.RoleDAO;
 import com.ai2331.jpa.slaver.member.dao.UserDAO;
 import com.ai2331.service.T1Service;
 import com.ai2331.sys.entity.AdminUser;
 import com.ai2331.sys.entity.Role;
+import com.ai2331.test.entity.T1;
 
 @RestController
 @RequestMapping("/t1")

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ai2331.common.entity.PageX;
 import com.ai2331.common.entity.ResultX;
-import com.ai2331.entity.T1;
 import com.ai2331.service.T1Service;
+import com.ai2331.test.entity.T1;
 
 @RestController
 @RequestMapping("/t1")

@@ -1,4 +1,4 @@
-package com.ai2331.ds;
+package com.ai2331.ds.jpa;
 
 import javax.sql.DataSource;
 

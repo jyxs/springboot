@@ -1,4 +1,4 @@
-package com.ai2331.entity;
+package com.ai2331.test.entity;
 
 import java.util.Date;
 

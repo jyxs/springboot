@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 
 import com.ai2331.common.cache.api.CacheService;
 import com.ai2331.common.entity.PageX;
-import com.ai2331.dao.T1DAO;
-import com.ai2331.dao.mapper.T1Mapper;
-import com.ai2331.entity.T1;
+import com.ai2331.jpa.master.sys.dao.T1DAO;
+import com.ai2331.mybatis.sys.dao.AdminUserMapper;
+import com.ai2331.mybatis.sys.dao.RoleMapper;
+import com.ai2331.mybatis.test.dao.T1Mapper;
 import com.ai2331.service.T1Service;
-import com.ai2331.sys.dao.mapper.AdminUserMapper;
-import com.ai2331.sys.dao.mapper.RoleMapper;
 import com.ai2331.sys.entity.AdminUser;
 import com.ai2331.sys.entity.Role;
+import com.ai2331.test.entity.T1;
 
 @Service
 public class T1ServiceImpl implements T1Service {
