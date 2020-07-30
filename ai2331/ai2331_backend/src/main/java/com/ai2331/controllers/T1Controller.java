@@ -1,24 +1,16 @@
 package com.ai2331.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ai2331.common.entity.PageX;
 import com.ai2331.common.entity.ResultX;
-import com.ai2331.jpa.master.sys.dao.RoleDAO;
-import com.ai2331.jpa.slaver.member.dao.UserDAO;
+import com.ai2331.mybatis.sys.dao.RoleDAO;
 import com.ai2331.service.T1Service;
 import com.ai2331.sys.entity.AdminUser;
 import com.ai2331.sys.entity.Role;
@@ -32,26 +24,7 @@ public class T1Controller {
 
 	@Autowired
 	private RoleDAO roleDAO;
-	@Autowired
-	private UserDAO userDAO;
 
-	@PostMapping("/list")
-	@RequiresPermissions(value = "t1-list")
-	public Page<T1> list(@RequestBody PageX pager) {
-
-		return service.list(pager);
-	}
-
-	@PostMapping("/save")
-	public T1 save(@RequestBody T1 t) {
-		return service.insert(t);
-	}
-
-	@GetMapping("/del/{id}")
-	public String delete(@PathVariable("id") Integer id) {
-		service.delete(id);
-		return "ok";
-	}
 
 	@GetMapping("/t/e")
 	public Object testException() {
@@ -86,13 +59,5 @@ public class T1Controller {
 	@GetMapping("findRole/{uid}")
 	public List<Role> findRoleByUid(@PathVariable("uid") Integer uid) {
 		return service.findRole(uid);
-	}
-
-	@GetMapping("testMult")
-	public Map<String, Object> testMultDs() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("roles", roleDAO.findAll());
-		result.put("user", userDAO.findAll());
-		return result;
 	}
 }

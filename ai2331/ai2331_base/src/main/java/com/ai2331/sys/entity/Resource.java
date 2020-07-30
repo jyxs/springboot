@@ -2,34 +2,18 @@ package com.ai2331.sys.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
-@Table(name="t_resource")
 public class Resource {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer pid;// 父ID
-	@Column(name = "priv_code")
 	private String privCode;// 权限代码
 	private String icon;// 图标css类名
 	private String name;// 功能名称
-	@Column(name = "resource_type")
 	private Integer resourceType;// 分类：0 菜单；1 功能
-	@Column(name = "sort_order")
 	private Integer sortOrder;// 排序号
 	private String url;// 访问地址
-	@Column(name = "tab_name")
 	private String tabName;// 存在url的菜单，显示在Tab上的名称
-	@Column(name = "create_time")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;// 创建时间
 	private String remark;// 备注

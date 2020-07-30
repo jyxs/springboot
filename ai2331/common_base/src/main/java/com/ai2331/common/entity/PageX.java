@@ -2,10 +2,12 @@ package com.ai2331.common.entity;
 
 public class PageX {
 	private Integer pageSize = 10;
-	private Integer pageNumber = 0;
+	private Integer pageNumber = 1;
 	private Long totalNumber = 0l;
-	private Integer totalPage = 0;
-
+	
+	private String order;
+	private String filed;
+	
 	public Integer getPageSize() {
 		return pageSize;
 	}
@@ -30,12 +32,29 @@ public class PageX {
 		this.totalNumber = totalNumber;
 	}
 
-	public Integer getTotalPage() {
-		return totalPage;
+	public int getOffSite() {
+		return (this.pageNumber - 1) * this.pageSize;
 	}
 
-	public void setTotalPage(Integer totalPage) {
-		this.totalPage = totalPage;
+	public long getTotalPage() {
+		return (this.totalNumber + this.pageSize - 1) / this.pageSize;
 	}
 
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public String getFiled() {
+		return filed;
+	}
+
+	public void setFiled(String filed) {
+		this.filed = filed;
+	}
+	
+	
 }

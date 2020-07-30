@@ -24,33 +24,33 @@ public class AdminUserController extends BaseController {
 
 	@Autowired
 	private AdminUserService service;
-	
+
 	@GetMapping("query")
 	public String query() {
 		return "sys/admin/query";
 	}
-	
+
 	@PostMapping("grid")
 	@ResponseBody
-	public ResultX grid(@RequestParam(name = "username",required = false) String username,@RequestParam(name = "mobilephone",required = false) String mobilephone,PageX pager) {
-		AdminUser user=new AdminUser();
+	public ResultX grid(@RequestParam(name = "username", required = false) String username, @RequestParam(name = "mobilephone", required = false) String mobilephone, PageX pager) {
+		AdminUser user = new AdminUser();
 		user.setUsername(username);
 		user.setMobilephone(mobilephone);
 		return new ResultX(ResultXCode.SUCCESS, "ok", service.queryAdminUser(user, pager));
 	}
-	
+
 	@GetMapping("save")
 	public String save() {
 		return "sys/admin/save";
 	}
-	
+
 	@PostMapping("save")
 	@ResponseBody
 	public ResultX saveSubmit(AdminUser user) {
-		if(StringUtils.isBlank(user.getPassword())){
+		if (StringUtils.isBlank(user.getPassword())) {
 			user.setPassword("123456");
 		}
 		user.setPassword(new SimpleHash("md5", user.getPassword(), ByteSource.Util.bytes(user.getUsername()), 2).toHex());
-		return new ResultX(ResultXCode.SUCCESS, "ok",service.saveAdminUser(user));
+		return new ResultX(ResultXCode.SUCCESS, "ok", service.saveAdminUser(user));
 	}
 }

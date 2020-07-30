@@ -19,8 +19,12 @@ public class GridX<T> {
 		this.pager = pager;
 	}
 
+	public GridX(PageX pager, List<T> rows) {
+		this.pager = pager;
+		this.rows = rows;
+	}
+
 	public PageX getPager() {
 		return pager;
 	}
-
 }

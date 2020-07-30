@@ -3,11 +3,9 @@ package com.ai2331;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
-@ServletComponentScan
 @ImportResource({"ai2331-*.xml"})
 public class BackendAppRun {
 

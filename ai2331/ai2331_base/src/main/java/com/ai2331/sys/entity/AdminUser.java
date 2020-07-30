@@ -3,24 +3,13 @@ package com.ai2331.sys.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
-@Table(name = "t_admin_user")
 public class AdminUser implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3231135580478260519L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String username;// 登录名
 	private String fullname;// 全名
@@ -30,16 +19,12 @@ public class AdminUser implements Serializable{
 	private String mobilephone;// 手机
 	private String telephone;// 固定电话
 	private String im;// IM联系方式
-	@Column(name = "create_time")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;// 创建时间
-	@Column(name = "last_time")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date lastTime;// 上次登录时间
-	@Column(name = "last_ip")
 	private String lastIp;// 上次登录IP
 	private Integer enabled;// 是否有效：0 否，1 是
-	@Column(name = "is_super")
 	private Integer isSuper;// 是否超级管理员
 
 	public Integer getId() {
