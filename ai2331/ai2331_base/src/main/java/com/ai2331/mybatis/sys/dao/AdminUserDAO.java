@@ -3,6 +3,7 @@ package com.ai2331.mybatis.sys.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -17,8 +18,13 @@ public interface AdminUserDAO {
 
 	AdminUser findOneByUsername(String userName);
 
-	@Select("select * from t_admin_user where username like #{user.username} and mobilephone = #{user.mobilephone} order by #{pager.filed} #{pager.order} limit #{pager.offSite},#{pager.pageSize}")
-	List<AdminUser> findAll(AdminUser user, PageX pager);
+	@Select("<script>"
+			+ "select * from t_admin_user where 1=1"
+			+ " <if test='user.username!=null'> and username like #{user.username}</if> "
+			+ " <if test='user.mobilephone!=null'> and mobilephone = #{user.mobilephone}</if> "
+			+ " order by #{pager.filed} #{pager.order} limit #{pager.offSite},#{pager.pageSize}"
+			+ "</script>")
+	List<AdminUser> findAll(@Param("user")AdminUser user, @Param("pager")PageX pager);
 	
 	
 	@Insert("INSERT INTO t_admin_user (username, fullname, password, title, email, mobilephone, telephone, im, create_time, last_time, last_ip, enabled, is_super) "

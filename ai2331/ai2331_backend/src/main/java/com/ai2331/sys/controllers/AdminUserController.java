@@ -32,10 +32,10 @@ public class AdminUserController extends BaseController {
 
 	@PostMapping("grid")
 	@ResponseBody
-	public ResultX grid(@RequestParam(name = "username", required = false) String username, @RequestParam(name = "mobilephone", required = false) String mobilephone, PageX pager) {
-		AdminUser user = new AdminUser();
-		user.setUsername(username);
-		user.setMobilephone(mobilephone);
+	public ResultX grid(AdminUser user, PageX pager) {
+		if(StringUtils.isNotEmpty(user.getUsername())) {
+			user.setUsername(user.getUsername()+"%");			
+		}
 		return new ResultX(ResultXCode.SUCCESS, "ok", service.queryAdminUser(user, pager));
 	}
 
