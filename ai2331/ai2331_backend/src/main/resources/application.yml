@@ -2,7 +2,7 @@ spring:
   datasource-master:
     url: jdbc:mysql://localhost/ai2331?characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
-    password: 123456
+    password: root123456
     type: com.alibaba.druid.pool.DruidDataSource
     druid: 
       initial-size: 8
@@ -24,7 +24,7 @@ spring:
   datasource-slaver:
     url: jdbc:mysql://localhost/audit?characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
-    password: 123456
+    password: root123456
     type: com.alibaba.druid.pool.DruidDataSource
     druid: 
       initial-size: 8

@@ -1,9 +1,10 @@
 package com.ai2331.security;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -36,7 +37,7 @@ public class AppShiroConfig {
 		shiroFilterFactoryBean.setLoginUrl("/login");// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
 		shiroFilterFactoryBean.setSuccessUrl("/"); // 登录成功后要跳转的链接
 		shiroFilterFactoryBean.setUnauthorizedUrl("/error/403");// 未授权界面;
-		Map<String, String> filterMap = new HashMap<String, String>();
+		Map<String, String> filterMap = new LinkedHashMap<String, String>();
 		filterMap.put("/css/**", "anon");
 		filterMap.put("/images/**", "anon");
 		filterMap.put("/js/**", "anon");
@@ -45,6 +46,17 @@ public class AppShiroConfig {
 		filterMap.put("/error/400", "anon");
 		filterMap.put("/error/403", "anon");
 		filterMap.put("/error/500", "anon");
+		//swagger
+		filterMap.put("/swagger-ui/index.html", "anon");
+		filterMap.put("/swagger-ui/**", "anon");
+		filterMap.put("/swagger-ui/**/**", "anon");
+		filterMap.put("/swagger-ui/index.html#/**", "anon");
+		filterMap.put("/swagger-resources/**", "anon");
+		filterMap.put("/v2/api-docs", "anon");
+		filterMap.put("/v3/api-docs", "anon");
+		filterMap.put("/webjars/**", "anon");
+		filterMap.put("/swagger-ui.html", "anon");
+		
 		filterMap.put("/t1/thymleaftest", "anon");
 		filterMap.put("/t2/thymleaftest", "anon");
 		filterMap.put("/logout", "logout");// 配置退出 过滤器,其中的具体的退出代码Shiro已经实现

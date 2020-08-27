@@ -1,11 +1,11 @@
-package com.ai2331.sys.entity;
+package com.ai2331.corp.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class AdminUser implements Serializable{
+public class CorpStaff implements Serializable {
 	/**
 	 * 
 	 */
@@ -26,6 +26,7 @@ public class AdminUser implements Serializable{
 	private String lastIp;// 上次登录IP
 	private Integer enabled;// 是否有效：0 否，1 是
 	private Integer isSuper;// 是否超级管理员
+	private String corpCode;// 公司编码
 
 	public Integer getId() {
 		return id;
@@ -138,4 +139,13 @@ public class AdminUser implements Serializable{
 	public void setIsSuper(Integer isSuper) {
 		this.isSuper = isSuper;
 	}
+
+	public String getCorpCode() {
+		return corpCode;
+	}
+
+	public void setCorpCode(String corpCode) {
+		this.corpCode = corpCode;
+	}
+
 }

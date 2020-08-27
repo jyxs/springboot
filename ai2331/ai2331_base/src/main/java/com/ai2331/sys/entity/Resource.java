@@ -115,4 +115,15 @@ public class Resource {
 		this.enabled = enabled;
 	}
 
+	@Override
+	public boolean equals(Object res) {
+		if (null == res) {
+			return false;
+		}
+		if (id.equals(((Resource) res).getId())) {
+			return true;
+		}
+		return false;
+	}
+
 }

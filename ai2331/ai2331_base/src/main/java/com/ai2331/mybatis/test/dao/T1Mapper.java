@@ -7,7 +7,7 @@ import com.ai2331.ds.DataSourceHolder.DataSourceKey;
 import com.ai2331.test.entity.T1;
 
 @Repository
-@DataSource(DataSourceKey.SLAVER)
+@DataSource(DataSourceKey.MASTER)
 public interface T1Mapper{
 	T1 findById(Integer id);
 }

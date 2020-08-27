@@ -2,6 +2,7 @@ package com.ai2331.controllers;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ai2331.common.entity.ResultX;
+import com.ai2331.corp.entity.CorpStaff;
 import com.ai2331.mybatis.sys.dao.RoleDAO;
 import com.ai2331.service.T1Service;
-import com.ai2331.sys.entity.AdminUser;
 import com.ai2331.sys.entity.Role;
 import com.ai2331.test.entity.T1;
 
@@ -47,12 +48,13 @@ public class T1Controller {
 	}
 
 	@GetMapping("findById/{id}")
+	@RequiresPermissions("abc")
 	public T1 findById(@PathVariable("id") Integer id) {
 		return service.findById(id);
 	}
 
 	@GetMapping("findAdmin/{username}")
-	public AdminUser findByUsername(@PathVariable("username") String username) {
+	public CorpStaff findByUsername(@PathVariable("username") String username) {
 		return service.findAdminByUsername(username);
 	}
 

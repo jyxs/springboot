@@ -11,7 +11,6 @@ public class Role {
 	private String roleCode;// 角色代码
 
 	private String name;// 角色名
-	private Integer sortOrder;// 排序号
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;// 创建时间
 	private String remark;// 备注
@@ -47,14 +46,6 @@ public class Role {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Integer getSortOrder() {
-		return sortOrder;
-	}
-
-	public void setSortOrder(Integer sortOrder) {
-		this.sortOrder = sortOrder;
 	}
 
 	public Date getCreateTime() {

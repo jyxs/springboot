@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ai2331.common.entity.ResultX;
 import com.ai2331.common.entity.ResultX.ResultXCode;
-import com.ai2331.sys.entity.AdminUser;
+import com.ai2331.corp.entity.CorpStaff;
 
 @RequestMapping("/")
 @Controller
@@ -27,7 +27,7 @@ public class PortalController extends BaseController {
 
 	@GetMapping({ "", "/", "/portal" })
 	public String portal(Model model) {
-		AdminUser user = currentUser();
+		CorpStaff user = currentUser();
 		model.addAttribute("user", user);
 		return "/portal";
 	}

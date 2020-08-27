@@ -9,35 +9,35 @@ import org.springframework.stereotype.Service;
 import com.ai2331.AppConstants;
 import com.ai2331.common.entity.GridX;
 import com.ai2331.common.entity.PageX;
-import com.ai2331.mybatis.sys.dao.AdminUserDAO;
-import com.ai2331.sys.entity.AdminUser;
-import com.ai2331.sys.service.AdminUserService;
+import com.ai2331.corp.entity.CorpStaff;
+import com.ai2331.mybatis.corp.dao.CorpStaffDAO;
+import com.ai2331.sys.service.CorpStaffService;
 
 @Service
-public class AdminUserServiceImpl implements AdminUserService {
+public class CorpStaffServiceImpl implements CorpStaffService {
 
 	@Autowired
-	private AdminUserDAO dao;
+	private CorpStaffDAO dao;
 
 	@Override
-	public GridX<AdminUser> queryAdminUser(AdminUser user, PageX pager) {
+	public GridX<CorpStaff> queryAdminUser(CorpStaff user, PageX pager) {
 		if (StringUtils.isBlank(pager.getFiled())) {
 			pager.setFiled("create_time");
 		}
 		if (StringUtils.isBlank(pager.getOrder())) {
 			pager.setOrder("DESC");
 		}
-		return new GridX<AdminUser>(pager, dao.findAll(user, pager));
+		return new GridX<CorpStaff>(pager, dao.findAll(user, pager));
 	}
 
 	@Override
-	public AdminUser saveAdminUser(AdminUser user) {
+	public CorpStaff saveAdminUser(CorpStaff user) {
 		initInsertAdminUser(user);
 		dao.insert(user);
 		return user;
 	}
 
-	private void initInsertAdminUser(AdminUser user) {
+	private void initInsertAdminUser(CorpStaff user) {
 		user.setCreateTime(new Date());
 		user.setEnabled(AppConstants.YES);
 		user.setIsSuper(AppConstants.NO);
