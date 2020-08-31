@@ -20,7 +20,13 @@ public interface CorpResourceDAO{
 	 * @param suitCodes 套件code集合
 	 * @return
 	 */
-	@Select("SELECT * FROM sys_resource WHERE enabled=1 and id IN(SELECT resource_id FROM sys_role_resource WHERE role_code IN(SELECT role_code FROM sys_role WHERE role_code IN(SELECT role_code FROM sys_suit_role WHERE suit_code IN(#{suitCodes}))))")
+	@Select("<script>"
+			+ "SELECT * FROM sys_resource WHERE enabled=1 and id IN(SELECT resource_id FROM sys_role_resource WHERE role_code IN(SELECT role_code FROM sys_role WHERE role_code IN(SELECT role_code FROM sys_suit_role WHERE suit_code IN("
+			+ " <foreach item='code' index='ind' collection='suitCodes' separator=','>"
+			+ " #{code}"
+			+ " </foreach>"
+			+ "))))"
+			+ "</script>")
 	List<Resource> findBySuitCodes(@Param("suitCodes")Set<String> suitCodes);
 	
 	/**
@@ -39,6 +45,13 @@ public interface CorpResourceDAO{
 	 * @param corpCode  公司code
 	 * @return
 	 */
-	@Select("SELECT * FROM sys_resource WHERE id IN(SELECT resource_id FROM b_corp_role_resource WHERE role_code IN(#{roleCodes}) AND corp_code=#{corpCode})")
+	@Select("<script>"
+			+"SELECT * FROM sys_resource WHERE id IN(SELECT resource_id FROM b_corp_role_resource WHERE role_code IN("
+			+ " <foreach item='code' index='ind' collection='roleCodes' separator=','>"
+			+ " #{code}"
+			+ " </foreach>"
+			+ ") AND corp_code=#{corpCode})"
+			+ "</script>")
 	List<Resource> findByRoleCodesAndCorpCode(@Param("roleCodes") List<String> roleCodes, @Param("corpCode") String corpCode);
+
 }

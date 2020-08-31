@@ -1,4 +1,4 @@
-package com.ai2331.sys.service.impl;
+package com.ai2331.corp.service.impl;
 
 import java.util.Date;
 
@@ -10,8 +10,8 @@ import com.ai2331.AppConstants;
 import com.ai2331.common.entity.GridX;
 import com.ai2331.common.entity.PageX;
 import com.ai2331.corp.entity.CorpStaff;
+import com.ai2331.corp.service.CorpStaffService;
 import com.ai2331.mybatis.corp.dao.CorpStaffDAO;
-import com.ai2331.sys.service.CorpStaffService;
 
 @Service
 public class CorpStaffServiceImpl implements CorpStaffService {

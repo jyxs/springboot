@@ -15,7 +15,7 @@ import com.ai2331.common.entity.ResultX;
 import com.ai2331.common.entity.ResultX.ResultXCode;
 import com.ai2331.controllers.BaseController;
 import com.ai2331.corp.entity.CorpStaff;
-import com.ai2331.sys.service.CorpStaffService;
+import com.ai2331.corp.service.CorpStaffService;
 
 import io.swagger.annotations.ApiOperation;
 

@@ -19,7 +19,6 @@ import com.ai2331.util.WebConstants;
 
 @ControllerAdvice
 public class AppExceptionHandler {
-
 	@ExceptionHandler(Exception.class)
 	public Object errorHandler(HttpServletRequest request, HttpServletResponse response, Exception e) {
 		StringBuffer params = new StringBuffer();
@@ -46,6 +45,7 @@ public class AppExceptionHandler {
 				msg = e.toString();
 			}
 		}
+		e.printStackTrace();
 		ModelAndView mv = new ModelAndView();
 		if (isView) {
 			if (isParamError) {

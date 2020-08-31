@@ -30,7 +30,6 @@ import com.ai2331.mybatis.corp.dao.CorpStaffDAO;
 import com.ai2331.mybatis.sys.dao.CorpDAO;
 import com.ai2331.sys.entity.Corp;
 import com.ai2331.sys.entity.Resource;
-import com.ai2331.sys.entity.Role;
 import com.alibaba.druid.support.json.JSONUtils;
 
 public class AppRealmConfig extends AuthorizingRealm {
@@ -65,12 +64,12 @@ public class AppRealmConfig extends AuthorizingRealm {
 		}
 
 		// 获取用户角色
-		List<Role> roles = corpRoleDAO.findRolesByUsername(user.getUsername(), user.getCorpCode());
+		List<com.ai2331.corp.entity.Role> roles = corpRoleDAO.findRolesByUsername(user.getUsername(), user.getCorpCode());
 		List<String> roleCodes = new ArrayList<String>();
 		// 初始化角色，权限
-		for (Role role : roles) {
-			authorizationInfo.addRole(role.getRoleCode());
-			roleCodes.add(role.getRoleCode());
+		for (com.ai2331.corp.entity.Role role : roles) {
+			authorizationInfo.addRole(role.getCode());
+			roleCodes.add(role.getCode());
 		}
 
 		// 公司所具有的所有资源

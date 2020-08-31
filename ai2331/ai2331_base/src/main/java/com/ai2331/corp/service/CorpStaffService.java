@@ -1,4 +1,4 @@
-package com.ai2331.sys.service;
+package com.ai2331.corp.service;
 
 import com.ai2331.common.entity.GridX;
 import com.ai2331.common.entity.PageX;

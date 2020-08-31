@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.ai2331.ds.DataSource;
 import com.ai2331.ds.DataSourceHolder.DataSourceKey;
-import com.ai2331.sys.entity.Role;
+import com.ai2331.corp.entity.Role;
 
 @Mapper
 @DataSource(DataSourceKey.MASTER)
