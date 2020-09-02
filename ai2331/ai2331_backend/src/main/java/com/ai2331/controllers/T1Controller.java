@@ -12,8 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ai2331.common.entity.ResultX;
 import com.ai2331.corp.entity.CorpStaff;
-import com.ai2331.mybatis.sys.dao.RoleDAO;
 import com.ai2331.service.T1Service;
+import com.ai2331.sys.dao.RoleDAO;
 import com.ai2331.sys.entity.Role;
 import com.ai2331.test.entity.T1;
 

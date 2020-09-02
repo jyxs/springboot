@@ -1,4 +1,4 @@
-package com.ai2331.mybatis.test.dao;
+package com.ai2331.test.dao;
 
 import org.springframework.stereotype.Repository;
 

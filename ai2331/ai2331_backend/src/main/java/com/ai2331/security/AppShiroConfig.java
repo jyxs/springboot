@@ -46,6 +46,8 @@ public class AppShiroConfig {
 		filterMap.put("/error/403", "anon");
 		filterMap.put("/error/500", "anon");
 		//swagger
+		filterMap.put("/doc.html", "anon");
+		filterMap.put("/doc.html#/**", "anon");
 		filterMap.put("/swagger-ui/index.html", "anon");
 		filterMap.put("/swagger-ui/**", "anon");
 		filterMap.put("/swagger-ui/**/**", "anon");

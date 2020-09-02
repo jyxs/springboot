@@ -117,6 +117,7 @@ CREATE TABLE `sys_corp` (
   `check_reason` varchar(512) DEFAULT NULL COMMENT '审核原因',
   `suit_code` varchar(128) NOT NULL COMMENT '公司套装code，多个以英文逗号分隔',
   `suit_code_extra` varchar(128) DEFAULT NULL COMMENT '增值套装，多个以英文逗号分隔',
+  `remark` varchar(1024) DEFAULT NULL COMMENT '备注',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `creator` int(11) NOT NULL COMMENT '创建人',
   `update_time` datetime NOT NULL COMMENT '更新时间',
@@ -126,7 +127,7 @@ CREATE TABLE `sys_corp` (
 
 /*Data for the table `sys_corp` */
 
-insert  into `sys_corp`(`code`,`pcode`,`name`,`fullname`,`taxno`,`bank`,`bank_card_no`,`busi_scope`,`busi_type`,`phone`,`address`,`responsible`,`responsible_phone`,`status`,`check_status`,`checker`,`check_reason`,`suit_code`,`suit_code_extra`,`create_time`,`creator`,`update_time`,`updator`) values ('sys_operation','0','运营平台','运营平台','00000000','00000000','00000000','管理运营整个平台',NULL,'13800000000','中国','yy','13800000000','1','1',1,'ok','SYS',NULL,'2020-08-12 14:47:09',1,'2020-08-12 14:47:15',1);
+insert  into `sys_corp`(`code`,`pcode`,`name`,`fullname`,`taxno`,`bank`,`bank_card_no`,`busi_scope`,`busi_type`,`phone`,`address`,`responsible`,`responsible_phone`,`status`,`check_status`,`checker`,`check_reason`,`suit_code`,`suit_code_extra`,`remark`,`create_time`,`creator`,`update_time`,`updator`) values ('sys_operation','0','运营平台','运营平台','00000000','00000000','00000000','管理运营整个平台',NULL,'13800000000','中国','yy','13800000000','1','1',1,'ok','SYS',NULL,NULL,'2020-08-12 14:47:09',1,'2020-08-12 14:47:15',1);
 
 /*Table structure for table `sys_corp_suit` */
 
@@ -213,6 +214,21 @@ CREATE TABLE `sys_suit_role` (
 /*Data for the table `sys_suit_role` */
 
 insert  into `sys_suit_role`(`suit_code`,`role_code`) values ('SYS','system_mgmt');
+
+/*Table structure for table `t1` */
+
+DROP TABLE IF EXISTS `t1`;
+
+CREATE TABLE `t1` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) NOT NULL,
+  `create_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='测试表';
+
+/*Data for the table `t1` */
+
+insert  into `t1`(`id`,`title`,`create_time`) values (17,'t1','2019-11-05 21:21:21'),(18,'t1','2019-11-05 21:21:21'),(19,'t1','2019-11-05 21:21:21'),(22,'t1','2019-11-07 21:21:21');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

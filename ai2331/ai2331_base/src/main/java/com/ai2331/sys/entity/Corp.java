@@ -14,15 +14,21 @@ public class Corp {
 	private String responsible;// 责任人
 	private String responsiblePhone;// 责任人电话
 	private Integer status;// 0失效，1可用
-	private String checkStatus;// 审核状态1申请，2通过，9不通过
+	private Integer checkStatus;// 审核状态1草稿，2申请，3通过，9不通过
 	private Integer checker;// 审核人
 	private String checkReason;// 审核原因
 	private String suitCode;// 公司套装code，多个以英文逗号分隔
 	private String suitCodeExtra;// 增值套装，多个以英文逗号分隔
+	private String remark;// 备注
 	private Date createTime;// 创建时间
 	private Integer creator;// 创建人
 	private Date updateTime;// 更新人
 	private Integer updator;// 更新时间
+
+	public static int CHECK_STATUS_DRAFT_1 = 1;
+	public static int CHECK_STATUS_APPLY_2 = 2;
+	public static int CHECK_STATUS_PASS_3 = 3;
+	public static int CHECK_STATUS_FAIL_9 = 9;
 
 	public String getCode() {
 		return code;
@@ -112,11 +118,11 @@ public class Corp {
 		this.status = status;
 	}
 
-	public String getCheckStatus() {
+	public Integer getCheckStatus() {
 		return checkStatus;
 	}
 
-	public void setCheckStatus(String checkStatus) {
+	public void setCheckStatus(Integer checkStatus) {
 		this.checkStatus = checkStatus;
 	}
 
@@ -182,6 +188,14 @@ public class Corp {
 
 	public void setUpdator(Integer updator) {
 		this.updator = updator;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 }

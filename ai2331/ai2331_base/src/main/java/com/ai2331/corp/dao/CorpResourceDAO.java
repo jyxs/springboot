@@ -1,4 +1,4 @@
-package com.ai2331.mybatis.corp.dao;
+package com.ai2331.corp.dao;
 
 import java.util.List;
 import java.util.Set;

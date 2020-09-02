@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ai2331.mybatis.corp.dao.CorpStaffDAO">
+<mapper namespace="com.ai2331.corp.dao.CorpStaffDAO">
 	<select id="findOneByUsername" resultType="com.ai2331.corp.entity.CorpStaff">
 		select * from b_corp_staff where username=#{username}
 	</select>

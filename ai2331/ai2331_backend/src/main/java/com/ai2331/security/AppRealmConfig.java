@@ -23,11 +23,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ai2331.AppConstants;
+import com.ai2331.corp.dao.CorpResourceDAO;
+import com.ai2331.corp.dao.CorpRoleDAO;
+import com.ai2331.corp.dao.CorpStaffDAO;
 import com.ai2331.corp.entity.CorpStaff;
-import com.ai2331.mybatis.corp.dao.CorpResourceDAO;
-import com.ai2331.mybatis.corp.dao.CorpRoleDAO;
-import com.ai2331.mybatis.corp.dao.CorpStaffDAO;
-import com.ai2331.mybatis.sys.dao.CorpDAO;
+import com.ai2331.sys.dao.CorpDAO;
 import com.ai2331.sys.entity.Corp;
 import com.ai2331.sys.entity.Resource;
 import com.alibaba.druid.support.json.JSONUtils;

@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ai2331.common.cache.api.CacheService;
+import com.ai2331.corp.dao.CorpStaffDAO;
 import com.ai2331.corp.entity.CorpStaff;
-import com.ai2331.mybatis.corp.dao.CorpStaffDAO;
-import com.ai2331.mybatis.test.dao.T1Mapper;
 import com.ai2331.service.T1Service;
 import com.ai2331.sys.entity.Role;
+import com.ai2331.test.dao.T1Mapper;
 import com.ai2331.test.entity.T1;
 
 @Service
