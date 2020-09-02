@@ -18,6 +18,8 @@ public interface ResourceService {
 	ResultX updateEnabled(Integer id, Integer enabled);
 
 	ResultX updateSort(Integer id, Integer sort);
+	
+	ResultX delete(Integer id);
 
 	int getMaxSort(Integer id);
 

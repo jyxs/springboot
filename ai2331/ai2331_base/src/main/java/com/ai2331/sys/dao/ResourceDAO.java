@@ -3,6 +3,7 @@ package com.ai2331.sys.dao;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -50,6 +51,9 @@ public interface ResourceDAO{
 	
 	@Update("update sys_resource set icon=#{icon},name=#{name},resource_type=#{resourceType},sort_order=#{sortOrder},url=#{url},tab_name=#{tabName},remark=#{remark},enabled=#{enabled} where id=#{id}")
 	int update(@Param("r")Resource resource);
+	
+	@Delete("delete from sys_resource where id=#{id}")
+	int delete(@Param("id") Integer id);
 	
 	@Update("update sys_resource set enabled=#{enabled} where id=#{id}")
 	int updateEnabled(@Param("id") Integer id, @Param("enabled") Integer enabled);

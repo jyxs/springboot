@@ -63,6 +63,15 @@ public class ResourceServiceImpl implements ResourceService {
 		}
 	}
 
+	public ResultX delete(Integer id) {
+		int result = dao.delete(id);
+		if (result > 0) {
+			return new ResultX(ResultXCode.SUCCESS);
+		} else {
+			return new ResultX(ResultXCode.FAIL, "操作失败");
+		}
+	}
+
 	@Override
 	public ResultX updateEnabled(Integer id, Integer enabled) {
 		if (null == id) {

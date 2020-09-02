@@ -56,6 +56,12 @@ public class ResourceController extends BaseController {
 		return service.updateEnabled(id, enabled);
 	}
 
+	@ApiOperation("删除资源状态")
+	@PostMapping("delete/{id}")
+	public ResultX delete(@PathVariable("id") Integer id) {
+		return service.delete(id);
+	}
+
 	@ApiOperation("修改资源排序")
 	@PostMapping("editSort")
 	public ResultX editSort(@RequestParam("id") Integer id, @RequestParam(name = "enabled", required = false) Integer sort) {
