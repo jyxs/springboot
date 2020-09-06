@@ -48,7 +48,7 @@ public class T1Controller {
 	}
 
 	@GetMapping("findById/{id}")
-	@RequiresPermissions("res_list")
+	@RequiresPermissions("abc")
 	public T1 findById(@PathVariable("id") Integer id) {
 		return service.findById(id);
 	}

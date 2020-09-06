@@ -27,7 +27,7 @@ public class AppExceptionHandler {
 			params.append(key + "=" + requestParamMap.get(key) + ",");
 		}
 
-		boolean isView = (boolean) request.getAttribute(WebConstants.IS_VIEW_KEY);
+		//boolean isView = (boolean) request.getAttribute(WebConstants.IS_VIEW_KEY);
 		boolean isParamError = (e instanceof MethodArgumentTypeMismatchException);
 		boolean isUnauth = false;
 		String msg = "";
@@ -47,29 +47,41 @@ public class AppExceptionHandler {
 		}
 		e.printStackTrace();
 		ModelAndView mv = new ModelAndView();
-		if (isView) {
-			if (isParamError) {
-				mv.setViewName("error/404");
-			} else if (isUnauth) {
-				mv.setViewName("error/403");
-			} else {
-				mv.setViewName("error/500");
-			}
-			mv.addObject("errorMsg", msg);
-			return mv;
+		mv.setView(new MappingJackson2JsonView());
+		ResultX result = new ResultX();
+		if (isParamError) {
+			result.setCode(ResultXCode.NOTFOUND.getCode());
+		} else if (isUnauth) {
+			result.setCode(ResultXCode.UNAUTHORIZED.getCode());
 		} else {
-			mv.setView(new MappingJackson2JsonView());
-			ResultX result = new ResultX();
-			if (isParamError) {
-				result.setCode(ResultXCode.NOTFOUND.getCode());
-			} else if (isUnauth) {
-				result.setCode(ResultXCode.UNAUTHORIZED.getCode());
-			} else {
-				result.setCode(ResultXCode.ERROR.getCode());
-			}
-			result.setMessage(msg);
-			mv.addObject(result);
-			return mv;
+			result.setCode(ResultXCode.ERROR.getCode());
 		}
+		result.setMessage(msg);
+		mv.addObject(result);
+		return mv;
+//		if (isView) {
+//			if (isParamError) {
+//				mv.setViewName("error/404");
+//			} else if (isUnauth) {
+//				mv.setViewName("error/403");
+//			} else {
+//				mv.setViewName("error/500");
+//			}
+//			mv.addObject("errorMsg", msg);
+//			return mv;
+//		} else {
+//			mv.setView(new MappingJackson2JsonView());
+//			ResultX result = new ResultX();
+//			if (isParamError) {
+//				result.setCode(ResultXCode.NOTFOUND.getCode());
+//			} else if (isUnauth) {
+//				result.setCode(ResultXCode.UNAUTHORIZED.getCode());
+//			} else {
+//				result.setCode(ResultXCode.ERROR.getCode());
+//			}
+//			result.setMessage(msg);
+//			mv.addObject(result);
+//			return mv;
+//		}
 	}
 }

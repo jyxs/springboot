@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import com.ai2331.util.WebConstants;
-
 /**
  * 用来处理40x，5xx错误
  * 
@@ -27,7 +25,7 @@ public class AppErrorController implements ErrorController {
 	public ModelAndView error(HttpServletRequest request, Exception e) {
 		String statusCode = request.getAttribute("javax.servlet.error.status_code").toString();
 		ModelAndView view = new ModelAndView();
-		boolean isView = (boolean) request.getAttribute(WebConstants.IS_VIEW_KEY);
+//		boolean isView = (boolean) request.getAttribute(WebConstants.IS_VIEW_KEY);
 		String msg = "";
 		msg = e.getMessage();
 		if (StringUtils.isEmpty(msg)) {
@@ -37,29 +35,42 @@ public class AppErrorController implements ErrorController {
 			msg = e.toString();
 		}
 		loger.debug(">>>>>>>>>>>>>>>>>>>request uri" + request.getRequestURI());
-		if (isView && isAjaxRequest(request) == false) {
-			view.addObject("errorMsg", msg);
-			if (statusCode.startsWith("4")) {
-				if (statusCode.contentEquals("403")) {
-					view.setViewName("/error/403");
-				} else {
-					view.setViewName("/error/404");
-				}
+		view.setView(new MappingJackson2JsonView());
+		if (statusCode.startsWith("4")) {
+			if (statusCode.contentEquals("403")) {
+				msg = "没有权限";
 			} else {
-				view.setViewName("/error/500");
+				msg = "未找到URL";
 			}
-		} else {
-			view.setView(new MappingJackson2JsonView());
-			if (statusCode.startsWith("4")) {
-				if (statusCode.contentEquals("403")) {
-					msg = "没有权限";
-				} else {
-					msg = "未找到URL";
-				}
-			}
-			view.addObject("code", statusCode);
-			view.addObject("message", msg);
+		}else {
+			msg = "服务器异常";
 		}
+		view.addObject("code", statusCode);
+		view.addObject("message", msg);
+		
+//		if (isView && isAjaxRequest(request) == false) {
+//			view.addObject("errorMsg", msg);
+//			if (statusCode.startsWith("4")) {
+//				if (statusCode.contentEquals("403")) {
+//					view.setViewName("/error/403");
+//				} else {
+//					view.setViewName("/error/404");
+//				}
+//			} else {
+//				view.setViewName("/error/500");
+//			}
+//		} else {
+//			view.setView(new MappingJackson2JsonView());
+//			if (statusCode.startsWith("4")) {
+//				if (statusCode.contentEquals("403")) {
+//					msg = "没有权限";
+//				} else {
+//					msg = "未找到URL";
+//				}
+//			}
+//			view.addObject("code", statusCode);
+//			view.addObject("message", msg);
+//		}
 		return view;
 	}
 

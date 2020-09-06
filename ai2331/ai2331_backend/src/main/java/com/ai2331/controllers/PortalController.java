@@ -1,5 +1,11 @@
 package com.ai2331.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -40,7 +46,7 @@ public class PortalController extends BaseController {
 	@PostMapping("/login")
 	@ResponseBody
 	public ResultX loginSubmit(@RequestParam("uname") String username, @RequestParam("pwd") String password,
-			@RequestParam(name = "rememberMe", defaultValue = "0") String rememberMe) {
+			@RequestParam(name = "rememberMe", defaultValue = "0") String rememberMe,HttpServletRequest request) {
 		if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 			return new ResultX(ResultXCode.FAIL, "请填写用户名或密码");
 		}
@@ -61,6 +67,13 @@ public class PortalController extends BaseController {
 			return new ResultX(ResultXCode.FAIL, "验证未通过");
 		} catch (Exception e) {
 			return new ResultX(ResultXCode.FAIL, "验证未通过");
+		}
+		Map<String,String> loginCookie=new HashMap<>();
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie : cookies) {
+			if(cookie.getName().equals("JSESSIONID")) {
+				loginCookie.put(cookie.getName(), cookie.getValue());
+			}
 		}
 		return new ResultX(ResultXCode.SUCCESS, "验证成功");
 	}

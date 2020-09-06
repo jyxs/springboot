@@ -1,9 +1,11 @@
 package com.ai2331.controllers;
 
 import org.apache.shiro.SecurityUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.ai2331.corp.entity.CorpStaff;
 
+@CrossOrigin("*")
 public class BaseController {
 
 	protected CorpStaff currentUser() {
