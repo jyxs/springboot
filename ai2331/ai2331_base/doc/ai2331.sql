@@ -215,21 +215,29 @@ CREATE TABLE `sys_suit_role` (
 
 insert  into `sys_suit_role`(`suit_code`,`role_code`) values ('SYS','system_mgmt');
 
-/*Table structure for table `t1` */
 
-DROP TABLE IF EXISTS `t1`;
+DROP TABLE IF EXISTS `sys_dict`;
+CREATE TABLE `sys_dict` (
+  `code` varchar(50) NOT NULL COMMENT '代码，如gender',
+  `name` varchar(100) NOT NULL COMMENT '名，如“性别”',
+  `note` varchar(500) DEFAULT NULL COMMENT '备注',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '可用：0 否，1 是',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典'
 
-CREATE TABLE `t1` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) NOT NULL,
-  `create_time` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='测试表';
-
-/*Data for the table `t1` */
-
-insert  into `t1`(`id`,`title`,`create_time`) values (17,'t1','2019-11-05 21:21:21'),(18,'t1','2019-11-05 21:21:21'),(19,'t1','2019-11-05 21:21:21'),(22,'t1','2019-11-07 21:21:21');
-
+DROP TABLE IF EXISTS `sys_dict_item`;
+CREATE TABLE `sys_dict_item` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `group_code` varchar(50) NOT NULL COMMENT 'm_dict.code，如gender',
+  `value` varchar(50) NOT NULL COMMENT '值，如1',
+  `name` varchar(200) NOT NULL COMMENT '名，如男',
+  `ext1` varchar(100) DEFAULT NULL COMMENT '扩展1',
+  `ext2` varchar(100) DEFAULT NULL COMMENT '扩展2',
+  `ext3` varchar(100) DEFAULT NULL COMMENT '扩展3',
+  `sort_order` int DEFAULT NULL COMMENT '排序号，小靠前',
+  PRIMARY KEY (`id`),
+  KEY `fk_reference_21` (`group_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典条目'
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

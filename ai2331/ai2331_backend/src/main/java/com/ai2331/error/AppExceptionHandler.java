@@ -15,7 +15,6 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.ai2331.common.entity.ResultX;
 import com.ai2331.common.entity.ResultX.ResultXCode;
-import com.ai2331.util.WebConstants;
 
 @ControllerAdvice
 public class AppExceptionHandler {

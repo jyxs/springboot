@@ -1,5 +1,7 @@
 package com.ai2331.corp.controllers;
 
+import java.util.Collection;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -10,12 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ai2331.common.dict.Option;
+import com.ai2331.common.dict.api.LookupServices;
 import com.ai2331.common.entity.PageX;
 import com.ai2331.common.entity.ResultX;
 import com.ai2331.common.entity.ResultX.ResultXCode;
 import com.ai2331.controllers.BaseController;
 import com.ai2331.corp.entity.CorpStaff;
 import com.ai2331.corp.service.CorpStaffService;
+import com.alibaba.druid.support.json.JSONUtils;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -25,6 +30,8 @@ public class CorpStaffController extends BaseController {
 
 	@Autowired
 	private CorpStaffService service;
+	@Autowired
+	private LookupServices lookupServices;
 
 	@GetMapping("query")
 	public String query() {
