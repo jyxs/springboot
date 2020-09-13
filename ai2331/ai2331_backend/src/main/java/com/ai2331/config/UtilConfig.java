@@ -8,12 +8,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import com.ai2331.SpringContextUtil;
+import com.ai2331.common.choice.api.ChoiceService;
 import com.ai2331.common.dict.api.LookupService;
 import com.ai2331.common.dict.api.LookupServices;
+import com.ai2331.sys.util.service.ChoiceServiceImpl;
 import com.ai2331.sys.util.service.LookupServiceImpl;
 
 @Configuration
-public class LookupConfig {
+public class UtilConfig {
 
 	
 	@Bean(name = "dblookup")
@@ -31,5 +33,11 @@ public class LookupConfig {
 		lks.add(dblk);
 		lkp.setServices(lks);
 		return lkp;
+	}
+	
+	@Bean
+	@DependsOn("choiceDAO")
+	protected ChoiceService createChoiceService() {
+		return new ChoiceServiceImpl();
 	}
 }

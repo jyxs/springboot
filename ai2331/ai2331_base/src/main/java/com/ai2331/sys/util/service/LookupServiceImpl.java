@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ai2331.AppConstants;
+import com.ai2331.CommonConstants;
 import com.ai2331.common.dict.Option;
 import com.ai2331.common.dict.OptionGroup;
 import com.ai2331.common.dict.entity.Dict;
@@ -34,7 +34,7 @@ public class LookupServiceImpl extends AbstractLookupService {
 
 	@Override
 	public void reload() {
-		List<Dict> dicts = dao.listEnableDicts(AppConstants.YES);
+		List<Dict> dicts = dao.listEnableDicts(CommonConstants.YES);
 		List<DictItem> items = dao.listDictItems();
 		Map<String, List<DictItem>> itemMap = items.stream().collect(Collectors.groupingBy(DictItem::getGroupCode));
 

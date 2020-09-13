@@ -59,6 +59,7 @@ public class AppShiroConfig {
 		filterMap.put("/swagger-ui.html", "anon");
 		
 		filterMap.put("/t1/thymleaftest", "anon");
+		filterMap.put("/util/**", "anon");
 		filterMap.put("/t2/thymleaftest", "anon");
 		filterMap.put("/logout", "logout");// 配置退出 过滤器,其中的具体的退出代码Shiro已经实现
 		filterMap.put("/**", "authc");// 过滤链定义，从上向下顺序执行，一般将/**放在最为下边
