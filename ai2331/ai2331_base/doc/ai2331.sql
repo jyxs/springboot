@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.09 (64 bit)
-MySQL - 8.0.17 : Database - ai2331
+MySQL - 8.0.21 : Database - ai2331
 *********************************************************************
 */
 
@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS `b_corp_role_resource`;
 CREATE TABLE `b_corp_role_resource` (
   `role_code` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'b_corp_role.code',
   `corp_code` varchar(32) NOT NULL COMMENT 'sys_corp.code',
-  `resource_id` mediumint(6) NOT NULL COMMENT 'sys_resource.id',
+  `resource_id` mediumint NOT NULL COMMENT 'sys_resource.id',
   PRIMARY KEY (`role_code`,`corp_code`,`resource_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='公司角色与功能的关联表';
 
@@ -55,7 +55,7 @@ insert  into `b_corp_role_resource`(`role_code`,`corp_code`,`resource_id`) value
 DROP TABLE IF EXISTS `b_corp_staff`;
 
 CREATE TABLE `b_corp_staff` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `username` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '登录名',
   `fullname` varchar(50) NOT NULL COMMENT '全名',
   `password` char(32) NOT NULL COMMENT '32位加salt的MD5',
@@ -72,7 +72,7 @@ CREATE TABLE `b_corp_staff` (
   `corp_code` varchar(32) NOT NULL COMMENT 'sys_corp.code公司编码',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_admin_username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='公司员工';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='公司员工';
 
 /*Data for the table `b_corp_staff` */
 
@@ -92,6 +92,25 @@ CREATE TABLE `b_corp_staff_role` (
 /*Data for the table `b_corp_staff_role` */
 
 insert  into `b_corp_staff_role`(`username`,`corp_code`,`role_code`) values ('superuser','sys_operation','SO');
+
+/*Table structure for table `sys_choice_config` */
+
+DROP TABLE IF EXISTS `sys_choice_config`;
+
+CREATE TABLE `sys_choice_config` (
+  `choice_code` varchar(50) NOT NULL COMMENT '选项代码',
+  `choice_name` varchar(50) NOT NULL COMMENT '选项名称',
+  `id_label` varchar(50) NOT NULL COMMENT 'ID列的小标题',
+  `name_label` varchar(50) DEFAULT NULL COMMENT 'Name列的小标题',
+  `extra_fields` varchar(1000) DEFAULT NULL COMMENT '扩展字段，json格式',
+  `query_selector` varchar(1000) NOT NULL COMMENT '搜索的sql',
+  `get_selector` varchar(1000) NOT NULL COMMENT '取单个的sql',
+  PRIMARY KEY (`choice_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='动态选项配置';
+
+/*Data for the table `sys_choice_config` */
+
+insert  into `sys_choice_config`(`choice_code`,`choice_name`,`id_label`,`name_label`,`extra_fields`,`query_selector`,`get_selector`) values ('corp_all','全部公司集合','编码','名称','[{\"fieldName\":\"busiScope\",\"label\":\"义务范围\",\"image\":false}]','SELECT CODE,NAME,bank_card_no,busi_scope FROM sys_corp WHERE NAME LIKE \'%${q}%\' ORDER BY CODE ASC','SELECT CODE,NAME,bank_card_no,busi_scope FROM sys_corp WHERE CODE IN (${in}) ORDER BY CODE ASC');
 
 /*Table structure for table `sys_corp` */
 
@@ -113,15 +132,15 @@ CREATE TABLE `sys_corp` (
   `responsible_phone` varchar(32) NOT NULL COMMENT '责任人电话',
   `status` char(1) NOT NULL DEFAULT '1' COMMENT '0失效，1可用',
   `check_status` char(1) NOT NULL COMMENT '审核状态1申请，2通过，9不通过',
-  `checker` int(11) NOT NULL COMMENT '审核人',
+  `checker` int NOT NULL COMMENT '审核人',
   `check_reason` varchar(512) DEFAULT NULL COMMENT '审核原因',
   `suit_code` varchar(128) NOT NULL COMMENT '公司套装code，多个以英文逗号分隔',
   `suit_code_extra` varchar(128) DEFAULT NULL COMMENT '增值套装，多个以英文逗号分隔',
   `remark` varchar(1024) DEFAULT NULL COMMENT '备注',
   `create_time` datetime NOT NULL COMMENT '创建时间',
-  `creator` int(11) NOT NULL COMMENT '创建人',
+  `creator` int NOT NULL COMMENT '创建人',
   `update_time` datetime NOT NULL COMMENT '更新时间',
-  `updator` int(11) NOT NULL COMMENT '更新人',
+  `updator` int NOT NULL COMMENT '更新人',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -144,18 +163,55 @@ CREATE TABLE `sys_corp_suit` (
 
 insert  into `sys_corp_suit`(`code`,`name`,`status`) values ('SYS','平台管理员','1');
 
+/*Table structure for table `sys_dict` */
+
+DROP TABLE IF EXISTS `sys_dict`;
+
+CREATE TABLE `sys_dict` (
+  `code` varchar(50) NOT NULL COMMENT '代码，如gender',
+  `name` varchar(100) NOT NULL COMMENT '名，如“性别”',
+  `note` varchar(500) DEFAULT NULL COMMENT '备注',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '可用：0 否，1 是',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典';
+
+/*Data for the table `sys_dict` */
+
+insert  into `sys_dict`(`code`,`name`,`note`,`status`) values ('abc','abc',NULL,1);
+
+/*Table structure for table `sys_dict_item` */
+
+DROP TABLE IF EXISTS `sys_dict_item`;
+
+CREATE TABLE `sys_dict_item` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `group_code` varchar(50) NOT NULL COMMENT 'm_dict.code，如gender',
+  `value` varchar(50) NOT NULL COMMENT '值，如1',
+  `name` varchar(200) NOT NULL COMMENT '名，如男',
+  `ext1` varchar(100) DEFAULT NULL COMMENT '扩展1',
+  `ext2` varchar(100) DEFAULT NULL COMMENT '扩展2',
+  `ext3` varchar(100) DEFAULT NULL COMMENT '扩展3',
+  `sort_order` int DEFAULT NULL COMMENT '排序号，小靠前',
+  PRIMARY KEY (`id`),
+  KEY `fk_reference_21` (`group_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=20024 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典条目';
+
+/*Data for the table `sys_dict_item` */
+
+insert  into `sys_dict_item`(`id`,`group_code`,`value`,`name`,`ext1`,`ext2`,`ext3`,`sort_order`) values (20022,'abc','1','A',NULL,NULL,'AA',1),(20023,'abc','2','B',NULL,NULL,NULL,2);
+
 /*Table structure for table `sys_resource` */
 
 DROP TABLE IF EXISTS `sys_resource`;
 
 CREATE TABLE `sys_resource` (
-  `id` mediumint(6) NOT NULL AUTO_INCREMENT,
-  `pid` mediumint(6) NOT NULL DEFAULT '0' COMMENT '父ID',
+  `id` mediumint NOT NULL AUTO_INCREMENT,
+  `pid` mediumint NOT NULL DEFAULT '0' COMMENT '父ID',
   `priv_code` varchar(80) DEFAULT NULL COMMENT '权限代码',
   `icon` varchar(50) DEFAULT NULL COMMENT '图标css类名',
   `name` varchar(80) NOT NULL COMMENT '功能名称',
   `resource_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '分类：0 菜单；1 功能',
-  `sort_order` mediumint(8) DEFAULT '0' COMMENT '排序号',
+  `sort_order` mediumint DEFAULT '0' COMMENT '排序号',
   `url` varchar(200) DEFAULT NULL COMMENT '访问地址',
   `tab_name` varchar(80) DEFAULT NULL COMMENT '存在url的菜单，显示在Tab上的名称',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
@@ -173,8 +229,8 @@ insert  into `sys_resource`(`id`,`pid`,`priv_code`,`icon`,`name`,`resource_type`
 DROP TABLE IF EXISTS `sys_role`;
 
 CREATE TABLE `sys_role` (
-  `id` mediumint(6) NOT NULL AUTO_INCREMENT,
-  `pid` mediumint(6) NOT NULL DEFAULT '0' COMMENT '父角色Id',
+  `id` mediumint NOT NULL AUTO_INCREMENT,
+  `pid` mediumint NOT NULL DEFAULT '0' COMMENT '父角色Id',
   `role_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '角色代码',
   `name` varchar(80) NOT NULL COMMENT '角色名',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
@@ -193,7 +249,7 @@ DROP TABLE IF EXISTS `sys_role_resource`;
 
 CREATE TABLE `sys_role_resource` (
   `role_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `resource_id` mediumint(6) NOT NULL,
+  `resource_id` mediumint NOT NULL,
   PRIMARY KEY (`role_code`,`resource_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色与功能的关联表';
 
@@ -215,29 +271,6 @@ CREATE TABLE `sys_suit_role` (
 
 insert  into `sys_suit_role`(`suit_code`,`role_code`) values ('SYS','system_mgmt');
 
-
-DROP TABLE IF EXISTS `sys_dict`;
-CREATE TABLE `sys_dict` (
-  `code` varchar(50) NOT NULL COMMENT '代码，如gender',
-  `name` varchar(100) NOT NULL COMMENT '名，如“性别”',
-  `note` varchar(500) DEFAULT NULL COMMENT '备注',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '可用：0 否，1 是',
-  PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典'
-
-DROP TABLE IF EXISTS `sys_dict_item`;
-CREATE TABLE `sys_dict_item` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `group_code` varchar(50) NOT NULL COMMENT 'm_dict.code，如gender',
-  `value` varchar(50) NOT NULL COMMENT '值，如1',
-  `name` varchar(200) NOT NULL COMMENT '名，如男',
-  `ext1` varchar(100) DEFAULT NULL COMMENT '扩展1',
-  `ext2` varchar(100) DEFAULT NULL COMMENT '扩展2',
-  `ext3` varchar(100) DEFAULT NULL COMMENT '扩展3',
-  `sort_order` int DEFAULT NULL COMMENT '排序号，小靠前',
-  PRIMARY KEY (`id`),
-  KEY `fk_reference_21` (`group_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典条目'
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
