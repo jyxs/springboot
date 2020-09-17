@@ -1,5 +1,8 @@
 package com.ai2331.interceptor;
 
+import java.util.Enumeration;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +19,16 @@ public class AppInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		logger.debug(">>>>>>>>>>>>>>>>>preHandle");
+		Cookie[] cookies = request.getCookies();
+		if(null!=cookies) {
+		for (Cookie cookie : cookies) {
+			System.out.println(cookie.getName());
+		}
+		}
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+			System.out.println(headerNames.nextElement());
+		}
 //		if (!(handler instanceof HandlerMethod)) {
 //			return true;
 //		}

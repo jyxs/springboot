@@ -27,7 +27,6 @@ public class LookupServiceImpl extends AbstractLookupService {
 	}
 
 	@Override
-	@PostConstruct
 	public void init() {
 		reload();
 	}
