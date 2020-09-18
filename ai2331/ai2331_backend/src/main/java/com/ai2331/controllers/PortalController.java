@@ -79,7 +79,7 @@ public class PortalController extends BaseController {
 			return new ResultX(ResultXCode.FAIL, "验证失败");
 		}
 		// 对ip和用户名加密
-		String encrypt = AesUtil.encrypt(remoteAddr + "&" + username, password);
+		String encrypt = AesUtil.encrypt(remoteAddr + "&" + username, username);
 
 		return new ResultX(ResultXCode.SUCCESS, "验证成功", encrypt);
 	}
