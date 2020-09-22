@@ -1,9 +1,5 @@
 package com.ai2331.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ai2331.common.entity.ResultX;
 import com.ai2331.common.entity.ResultX.ResultXCode;
 import com.ai2331.corp.entity.CorpStaff;
+import com.ai2331.util.AesUtil;
+import com.ai2331.util.WebUtil;
 
 @RequestMapping("/")
 @Controller
@@ -46,7 +44,7 @@ public class PortalController extends BaseController {
 	@PostMapping("/login")
 	@ResponseBody
 	public ResultX loginSubmit(@RequestParam("uname") String username, @RequestParam("pwd") String password,
-			@RequestParam(name = "rememberMe", defaultValue = "0") String rememberMe,HttpServletRequest request) {
+			@RequestParam(name = "rememberMe", defaultValue = "0") String rememberMe, HttpServletRequest request) {
 		if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 			return new ResultX(ResultXCode.FAIL, "请填写用户名或密码");
 		}
@@ -68,14 +66,22 @@ public class PortalController extends BaseController {
 		} catch (Exception e) {
 			return new ResultX(ResultXCode.FAIL, "验证未通过");
 		}
-		Map<String,String> loginCookie=new HashMap<>();
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-			if(cookie.getName().equals("JSESSIONID")) {
-				loginCookie.put(cookie.getName(), cookie.getValue());
-			}
+//		Map<String,String> loginCookie=new HashMap<>();
+//		Cookie[] cookies = request.getCookies();
+//		for (Cookie cookie : cookies) {
+//			if(cookie.getName().equals("JSESSIONID")) {
+//				loginCookie.put(cookie.getName(), cookie.getValue());
+//			}
+//		}
+
+		String remoteAddr = WebUtil.getRemoteAddr(request);
+		if (StringUtils.isEmpty(remoteAddr)) {
+			return new ResultX(ResultXCode.FAIL, "验证失败");
 		}
-		return new ResultX(ResultXCode.SUCCESS, "验证成功");
+		// 对ip和用户名加密
+		String encrypt = AesUtil.encrypt(remoteAddr + "&" + username, username);
+
+		return new ResultX(ResultXCode.SUCCESS, "验证成功", encrypt);
 	}
 
 //	private void initUrlPermit() {
