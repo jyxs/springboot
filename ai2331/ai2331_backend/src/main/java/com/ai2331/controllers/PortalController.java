@@ -84,6 +84,11 @@ public class PortalController extends BaseController {
 		return new ResultX(ResultXCode.SUCCESS, "验证成功", encrypt);
 	}
 
+	@GetMapping("me")
+	@ResponseBody
+	public ResultX me() {
+		return new ResultX(ResultXCode.SUCCESS, "ok", this.currentUser());
+	}
 //	private void initUrlPermit() {
 //		// 初始化角色，权限
 //		List<Role> roles = roleDAO.findRolesByUserId(this.currentUser().getId());

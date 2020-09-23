@@ -35,8 +35,8 @@ public class CorpStaffController extends BaseController {
 	@PostMapping("grid")
 	@ResponseBody
 	public ResultX grid(CorpStaff user, PageX pager) {
-		if(StringUtils.isNotEmpty(user.getUsername())) {
-			user.setUsername(user.getUsername()+"%");			
+		if (StringUtils.isNotEmpty(user.getUsername())) {
+			user.setUsername(user.getUsername() + "%");
 		}
 		return new ResultX(ResultXCode.SUCCESS, "ok", service.queryAdminUser(user, pager));
 	}

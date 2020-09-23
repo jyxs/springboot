@@ -65,18 +65,6 @@ public class AppInterceptor implements HandlerInterceptor {
 				}
 			}
 		}
-//		if (request.getRequestURI().contentEquals("/login")) {
-//			return true;
-//		}
-//		Cookie[] cookies = request.getCookies();
-//		String token = "";
-//		if (null != cookies) {
-//			for (Cookie cookie : cookies) {
-//				if ("ai2331_token".equals(cookie.getName())) {
-//					token = cookie.getValue();
-//				}
-//			}
-//		}
 		//header中需要将登陆成功的token设置到key为ai2331_token的变量中
 		String token = request.getHeader("ai2331_token");
 		if (StringUtils.isEmpty(token)) {
