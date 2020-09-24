@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '典唐按摩',
+  title: 'Massagge',
 
   /**
    * @type {boolean} true | false
