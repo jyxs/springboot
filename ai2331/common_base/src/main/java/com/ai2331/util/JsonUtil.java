@@ -21,6 +21,9 @@ import com.fasterxml.jackson.databind.MappingJsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
+import com.fasterxml.jackson.databind.ser.PropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
 
@@ -33,33 +36,47 @@ public class JsonUtil {
 
 	static {
 		ObjectMapper om = jf.getCodec();
-
+		
 		om.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		om.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
-
-		om.setAnnotationIntrospector(new JacksonAnnotationIntrospector() {
+       	om.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
+       	
+    	om.setAnnotationIntrospector(new JacksonAnnotationIntrospector(){
 			private static final long serialVersionUID = -7777697503463875076L;
 
 			@Override
-			public Object findFilterId(Annotated a) {
+            public Object findFilterId(Annotated a) {
 				Object obj = super.findFilterId(a);
 
-				if (obj != null)
-					return obj;
-				else
-					return a.getAnnotated();
-			}
-		});
+				if(obj != null) return obj;
+				else return a.getAnnotated();
+            }
+        });
+       	
+    	om.setFilterProvider(new SimpleFilterProvider() {
+			private static final long serialVersionUID = 5008024488265740400L;
+
+			@Override
+    	    public PropertyFilter findPropertyFilter(Object filterId, Object valueToFilter)
+    	    {
+				if(valueToFilter==null) {
+					return super.findPropertyFilter(filterId, valueToFilter);
+				}
+    	    	PropertyFilter pf = null;
+    	    	//System.out.println(">>>>>>>>> findPropertyFilter: " + filterId + " - " + valueToFilter + "- " + pf);
+    	    	return pf==null?super.findPropertyFilter(filterId, valueToFilter): pf;
+    	    }
+		}.setDefaultFilter(SimpleBeanPropertyFilter.serializeAll()));
+       	
 	}
 
 	private JsonUtil() {
 	}
-
+	
 	static JsonFactory getJsonFactory() {
 		return jf;
 	}
-
-	// reading
+	
+	//reading
 	public static Map<String, Object> read(String str) throws IOException {
 		str = StringUtils.isEmpty(str) ? "" : str;
 		return read(new StringReader(str));
@@ -94,27 +111,25 @@ public class JsonUtil {
 		jp.close();
 		return t;
 	}
-
+	
 	public static <T> List<T> readList(String str, Class<T> c) throws IOException {
-		if (StringUtils.isEmpty(str))
-			return Collections.emptyList();
-
+		if(StringUtils.isEmpty(str)) return Collections.emptyList();
+		
 		CollectionType javaType = jf.getCodec().getTypeFactory().constructCollectionType(List.class, c);
 		return jf.getCodec().readValue(str, javaType);
 	}
 
-	public static <K, V> Map<K, V> readMap(String str, Class<K> k, Class<V> v) throws IOException {
-		if (StringUtils.isEmpty(str))
-			return Collections.emptyMap();
+	public static <K,V> Map<K, V> readMap(String str, Class<K> k, Class<V> v) throws IOException {
+		if(StringUtils.isEmpty(str)) return Collections.emptyMap();
 
 		MapType javaType = jf.getCodec().getTypeFactory().constructMapType(Map.class, k, v);
 		return jf.getCodec().readValue(str, javaType);
 	}
-
-	// writing
+	
+	//writing
 	public static void write(Writer out, Object object) throws IOException {
 		JsonGenerator jg = jf.createGenerator(out);
-		if (indent) {
+		if(indent){
 			jg.useDefaultPrettyPrinter();
 		}
 		if (object != null) {
@@ -135,7 +150,7 @@ public class JsonUtil {
 		return out.toString();
 	}
 
-	// setter
+	//setter
 	public static void setIndent(boolean indent) {
 		JsonUtil.indent = indent;
 	}
