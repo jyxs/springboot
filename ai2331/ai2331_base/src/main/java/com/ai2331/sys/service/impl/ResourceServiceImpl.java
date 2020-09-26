@@ -2,9 +2,12 @@ package com.ai2331.sys.service.impl;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +16,11 @@ import org.springframework.stereotype.Service;
 import com.ai2331.AppConstants;
 import com.ai2331.common.entity.ResultX;
 import com.ai2331.common.entity.ResultX.ResultXCode;
+import com.ai2331.corp.entity.CorpStaff;
 import com.ai2331.sys.dao.ResourceDAO;
 import com.ai2331.sys.entity.Resource;
+import com.ai2331.sys.entity.dto.ResourceTree;
+import com.ai2331.sys.service.ResourceMenuService;
 import com.ai2331.sys.service.ResourceService;
 
 @Service
@@ -22,6 +28,9 @@ public class ResourceServiceImpl implements ResourceService {
 
 	@Autowired
 	private ResourceDAO dao;
+
+	@Autowired
+	private ResourceMenuService resourceMenuService;
 
 	@Override
 	public List<Resource> query(Integer pid, Integer enabled) {
@@ -127,6 +136,18 @@ public class ResourceServiceImpl implements ResourceService {
 		Set<String> roleCodes = new HashSet<>();
 		roleCodes.add(roleCode);
 		return dao.findByRoleCodes(roleCodes);
+	}
+
+	@Override
+	public Map<String, Object> listMenuAndPerm(CorpStaff user) {
+
+		List<Resource> resources = resourceMenuService.listStaffResource(user);
+		List<ResourceTree> listStafResourceTree = resourceMenuService.listStafResourceTree(resources);
+
+		Map<String, Object> datas = new HashMap<String, Object>();
+		datas.put("menus", resourceMenuService.getMenus(listStafResourceTree));
+		datas.put("prems", resources.stream().filter(s -> s.getResourceType().equals(Resource.RESOURCE_TYPE_ACTION)).map(s -> s.getPrivCode()).collect(Collectors.toSet()));
+		return datas;
 	}
 
 }

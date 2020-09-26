@@ -1,8 +1,8 @@
 spring boot:2.2.0
 mysql:8.0
 
-backend采用thymleaf
-web采用前后端分离
+backend采用vue
+前后端分离
 
 认证框架
 shiro

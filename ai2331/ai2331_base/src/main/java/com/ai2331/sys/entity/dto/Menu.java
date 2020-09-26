@@ -2,10 +2,14 @@ package com.ai2331.sys.entity.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(value = Include.NON_NULL)
 public class Menu {
 	private String path;
-	private String uri;
 	private String redirect;
+	private String uri;
 	private String name;
 	private String component;
 	private Meta meta;
@@ -23,14 +27,6 @@ public class Menu {
 
 	public void setPath(String path) {
 		this.path = path;
-	}
-
-	public String getUri() {
-		return uri;
-	}
-
-	public void setUri(String uri) {
-		this.uri = uri;
 	}
 
 	public String getRedirect() {
@@ -73,6 +69,15 @@ public class Menu {
 		this.component = component;
 	}
 
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+	
+	@JsonInclude(value = Include.NON_NULL)
 	class Meta {
 		private String title;
 		private String icon;

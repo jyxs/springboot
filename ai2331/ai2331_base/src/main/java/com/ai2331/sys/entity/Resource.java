@@ -19,6 +19,9 @@ public class Resource {
 	private String remark;// 备注
 	private Integer enabled;// 是否生效：0 否；1 是
 
+	public static int RESOURCE_TYPE_MENU = 0;
+	public static int RESOURCE_TYPE_ACTION = 1;
+	
 	public Integer getId() {
 		return id;
 	}

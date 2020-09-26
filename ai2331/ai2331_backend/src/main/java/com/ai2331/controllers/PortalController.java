@@ -1,8 +1,5 @@
 package com.ai2331.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +11,7 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +23,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ai2331.common.entity.ResultX;
 import com.ai2331.common.entity.ResultX.ResultXCode;
 import com.ai2331.corp.entity.CorpStaff;
-import com.ai2331.sys.entity.dto.Menu;
+import com.ai2331.sys.service.ResourceService;
 import com.ai2331.util.AesUtil;
 import com.ai2331.util.WebUtil;
 
 @RequestMapping("/")
 @Controller
 public class PortalController extends BaseController {
+	@Autowired
+	private ResourceService resourceService;
 
 	@GetMapping({ "", "/", "/portal" })
 	public String portal(Model model) {
@@ -97,17 +97,17 @@ public class PortalController extends BaseController {
 	@GetMapping("menus")
 	@ResponseBody
 	public ResultX menus() {
-		Menu menu = new Menu();
-		menu.setPath("external-link2");
-		List<Menu> children = new ArrayList<Menu>();
-		Menu c1 = new Menu();
-		c1.createMeta("External Link", "link");
-		c1.setPath("https://www.baidu.com");
-		children.add(c1);
-		menu.setChildren(children);
-		List<Menu> menus = new ArrayList<Menu>();
-		menus.add(menu);
-		return new ResultX(ResultXCode.SUCCESS, "ok", menus);
+//		Menu menu = new Menu();
+//		menu.setPath("external-link2");
+//		List<Menu> children = new ArrayList<Menu>();
+//		Menu c1 = new Menu();
+//		c1.createMeta("External Link", "link");
+//		c1.setPath("https://www.baidu.com");
+//		children.add(c1);
+//		menu.setChildren(children);
+//		List<Menu> menus = new ArrayList<Menu>();
+//		menus.add(menu);
+		return new ResultX(ResultXCode.SUCCESS, "ok", resourceService.listMenuAndPerm(this.currentUser()));
 	}
 	
 //	private void initUrlPermit() {
