@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 
 Vue.use(Router)
 
@@ -158,24 +159,84 @@ export const constantRoutes = [
         meta: { title: 'External Link', icon: 'link' }
       }
     ]
-  },
-
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  }
 ]
-
-const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
-})
 
 const router = createRouter()
 
+let customMenus = []
+
+const _404 = { path: '*', redirect: '/404', hidden: true }
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
   const newRouter = createRouter()
-  router.matcher = newRouter.matcher // reset router
+  router.matcher = newRouter.matcher // reset router 这里只是重置了路由，并没有对router.options.routes进行重置
 }
 
+export function createRouter() {
+  var initMenus = []
+  // 这里重新初始化路由options
+  if (router) {
+    router.options.routes = []
+  }
+  for (var i in constantRoutes) {
+    // router.options.routes.push(constantRoutes[i])
+    initMenus.push(constantRoutes[i])
+    if (router) {
+      router.options.routes.push(constantRoutes[i])
+    }
+  }
+  return new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: initMenus
+  })
+}
+
+export function createCustomRouter() {
+  var menus = store.getters.menus
+  if (menus) {
+    for (var m in menus) {
+      var menu = addMenu(menus[m])
+      customMenus.push(menu)
+      router.options.routes.push(menu)
+    }
+  }
+  customMenus.push(_404)
+  return customMenus
+}
+
+export function cleanCustomRouter() {
+  customMenus = []
+}
+
+function addMenu(data) {
+  var menuObj = {
+    path: '/' + data['path'],
+    meta: data['meta'],
+    component: Layout,
+    redirect: data['redirect'],
+    children: []
+  }
+  if (data.children) {
+    for (const d in data.children) {
+      menuObj.children.push(addChildren(data.children[d]))
+    }
+  }
+  return menuObj
+}
+
+function addChildren(data) {
+  if (data.children) {
+    // 如果还有子项，则调用addMenu
+    addMenu(data)
+  } else {
+    var menuObj = {
+      path: data['path'],
+      meta: data['meta'],
+      component: () => import('@/views' + data['uri'])
+    }
+    return menuObj
+  }
+}
 export default router

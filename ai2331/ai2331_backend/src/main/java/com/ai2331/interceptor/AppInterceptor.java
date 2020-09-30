@@ -32,6 +32,7 @@ public class AppInterceptor implements HandlerInterceptor {
 		WHITE_LIST.add("/js/**");
 		WHITE_LIST.add("/fonts/**");
 		WHITE_LIST.add("/login");
+		WHITE_LIST.add("/logout");
 		WHITE_LIST.add("/error/400");
 		WHITE_LIST.add("/error/403");
 		WHITE_LIST.add("/error/500");

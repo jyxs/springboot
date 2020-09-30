@@ -12,41 +12,25 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ai2331.common.entity.ResultX;
 import com.ai2331.common.entity.ResultX.ResultXCode;
-import com.ai2331.corp.entity.CorpStaff;
 import com.ai2331.sys.service.ResourceService;
 import com.ai2331.util.AesUtil;
 import com.ai2331.util.WebUtil;
 
 @RequestMapping("/")
-@Controller
+@RestController
 public class PortalController extends BaseController {
 	@Autowired
 	private ResourceService resourceService;
 
-	@GetMapping({ "", "/", "/portal" })
-	public String portal(Model model) {
-		CorpStaff user = currentUser();
-		model.addAttribute("user", user);
-		return "/portal";
-	}
-
-	@GetMapping("/login")
-	public String login(Model model) {
-		return "/login";
-	}
-
 	@PostMapping("/login")
-	@ResponseBody
 	public ResultX loginSubmit(@RequestParam("uname") String username, @RequestParam("pwd") String password,
 			@RequestParam(name = "rememberMe", defaultValue = "0") String rememberMe, HttpServletRequest request) {
 		if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
@@ -70,14 +54,6 @@ public class PortalController extends BaseController {
 		} catch (Exception e) {
 			return new ResultX(ResultXCode.FAIL, "验证未通过");
 		}
-//		Map<String,String> loginCookie=new HashMap<>();
-//		Cookie[] cookies = request.getCookies();
-//		for (Cookie cookie : cookies) {
-//			if(cookie.getName().equals("JSESSIONID")) {
-//				loginCookie.put(cookie.getName(), cookie.getValue());
-//			}
-//		}
-
 		String remoteAddr = WebUtil.getRemoteAddr(request);
 		if (StringUtils.isEmpty(remoteAddr)) {
 			return new ResultX(ResultXCode.FAIL, "验证失败");
@@ -88,26 +64,21 @@ public class PortalController extends BaseController {
 		return new ResultX(ResultXCode.SUCCESS, "验证成功", encrypt);
 	}
 
-	@GetMapping("me")
-	@ResponseBody
+	@PostMapping("me")
 	public ResultX me() {
 		return new ResultX(ResultXCode.SUCCESS, "ok", this.currentUser());
 	}
 	
-	@GetMapping("menus")
-	@ResponseBody
-	public ResultX menus() {
-//		Menu menu = new Menu();
-//		menu.setPath("external-link2");
-//		List<Menu> children = new ArrayList<Menu>();
-//		Menu c1 = new Menu();
-//		c1.createMeta("External Link", "link");
-//		c1.setPath("https://www.baidu.com");
-//		children.add(c1);
-//		menu.setChildren(children);
-//		List<Menu> menus = new ArrayList<Menu>();
-//		menus.add(menu);
+	@PostMapping("authon")
+	public ResultX authon() {
 		return new ResultX(ResultXCode.SUCCESS, "ok", resourceService.listMenuAndPerm(this.currentUser()));
+	}
+	
+	@GetMapping("logout")
+	public ResultX logout() {
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+		return new ResultX(ResultXCode.SUCCESS, "ok");
 	}
 	
 //	private void initUrlPermit() {

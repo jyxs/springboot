@@ -23,8 +23,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-
 @Configuration
 public class AppShiroConfig {
 	private Logger log = LoggerFactory.getLogger(AppShiroConfig.class);
@@ -170,10 +168,10 @@ public class AppShiroConfig {
 	 * shiro对thyeleaf的支持
 	 * @return
 	 */
-	@Bean
-	public ShiroDialect shiroDialect() {
-		return new ShiroDialect();
-	}
+//	@Bean
+//	public ShiroDialect shiroDialect() {
+//		return new ShiroDialect();
+//	}
 
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 		AppShiroConfig c = new AppShiroConfig();

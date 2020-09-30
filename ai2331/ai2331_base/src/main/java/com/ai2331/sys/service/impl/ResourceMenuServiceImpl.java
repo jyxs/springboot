@@ -29,7 +29,7 @@ public class ResourceMenuServiceImpl extends ResourceMenuServiceAbstract {
 		Menu menu = new Menu();
 
 		menu.setPath(rt.getPrivCode());
-		menu.setName(rt.getName());
+//		menu.setName(rt.getName());
 		menu.createMeta(rt.getName(), rt.getIcon());
 		List<Menu> children = new ArrayList<Menu>();
 		if (null != rt.getChildren() && rt.getChildren().size() > 0) {
@@ -45,9 +45,9 @@ public class ResourceMenuServiceImpl extends ResourceMenuServiceAbstract {
 				menu.setUri(null);
 				menu.setRedirect(rt.getUrl());
 				Menu child = new Menu();
-				child.setPath(rt.getPrivCode());
+				child.setPath("index");
 				child.setUri(rt.getUrl());
-				child.setName(rt.getName());
+//				child.setName(rt.getName());
 				child.createMeta(rt.getName(), rt.getIcon());
 				children.add(child);
 				menu.setChildren(children);
