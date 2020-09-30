@@ -14,13 +14,13 @@ export function login(data) {
 export function getInfo(token) {
   return request({
     url: '/me',
-    method: 'get'
+    method: 'post'
   })
 }
 
 export function logout() {
   return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
+    url: '/logout',
+    method: 'get'
   })
 }
