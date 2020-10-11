@@ -3,7 +3,6 @@ package com.ai2331.interceptor;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
