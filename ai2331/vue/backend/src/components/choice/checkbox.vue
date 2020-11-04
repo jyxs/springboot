@@ -2,31 +2,22 @@
   <div class="app-container">
     <el-table
       ref="multipleTable"
-      :data="tableDatas"
+      :data="choiceDatas.tableDatas"
       stripe
       border
       style="width: 100%"
-      max-height="600"
+      :max-height="tableH"
       @selection-change="handleSelectionChange"
     >
-      >
       <el-table-column
         type="selection"
         width="55"
       />
       <el-table-column
-        prop="date"
-        label="日期"
-        width="180"
-      />
-      <el-table-column
-        prop="name"
-        label="姓名"
-        width="180"
-      />
-      <el-table-column
-        prop="address"
-        label="地址"
+        v-for="data in choiceDatas.headers"
+        :key="data.id"
+        :prop="data.id"
+        :label="data.label"
       />
     </el-table>
   </div>
@@ -36,10 +27,8 @@
 export default {
   props: {
     choiceDatas: {
-      type: Array,
-      default: () => {
-        return []
-      }
+      type: Object,
+      default: null
     },
     selected: {
       type: String,
@@ -48,11 +37,15 @@ export default {
   },
   data() {
     return {
-      multipleSelection: []
+      multipleSelection: [],
+      tableH: 600,
+      tableHeader: {},
+      talbeDatas: {}
     }
   },
   mounted() {
     this.initSelected()
+    this.tableH = window.innerHeight - 150
   },
   methods: {
     toggleSelection(rows) {
@@ -65,7 +58,12 @@ export default {
       }
     },
     handleSelectionChange(val) {
+      var ids = []
+      val.forEach(item => {
+        ids.push(item.id)
+      })
       this.multipleSelection = val
+      this.$emit('valueChange', ids)
     },
     initSelected() {
       if (this.selected) {

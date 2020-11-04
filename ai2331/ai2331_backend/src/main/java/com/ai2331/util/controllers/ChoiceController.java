@@ -38,11 +38,11 @@ public class ChoiceController extends BaseController {
 			@RequestParam(name = "extraKeys", required = false) String extraKeys, @RequestParam(name = "cp", required = false) Integer cp,
 			@RequestParam(name = "ps", required = false) Integer ps) {
 		PageX px = new PageX();
-		if (null == cp || cp <= 0) {
-			px.setPageNumber(1);
+		if (null != cp && cp > 0) {
+			px.setPageNumber(cp);
 		}
-		if (null == ps || ps == 0) {
-			px.setPageSize(10);
+		if (null != ps && ps > 0) {
+			px.setPageSize(ps);
 		}
 		GridX<List<Choice>> choices = service.queryChoice(choiceCode, q, extraKeys, px);
 		List<List<Choice>> rows = choices.getRows();

@@ -16,7 +16,6 @@
         :key="data.id"
         :prop="data.id"
         :label="data.label"
-        width="80"
       />
     </el-table>
   </div>
@@ -47,14 +46,10 @@ export default {
   mounted() {
     this.initSelected()
     this.tableH = window.innerHeight - 150
-    console.info('111')
-    console.info(this.choiceDatas)
   },
   methods: {
     handleChange(val) {
-      // console.info('1')
-      // console.info(val)
-      this.$emit('valueChange', val)
+      this.$emit('valueChange', val.id)
     },
     initSelected() {
       if (this.selected) {

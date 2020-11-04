@@ -24,18 +24,18 @@ const actions = {
    * @param {*} cp 当前页数
    * @param {*} ps 页面显示数量
    */
-  choice({ commit }, choiceCode, q, cp, ps) {
-    if (!cp || cp <= 0) {
-      cp = 1
+  choice({ commit }, params) {
+    if (!params.currentPage || params.currentPage <= 0) {
+      params.currentPage = 1
     }
-    if (!ps) {
-      ps = 10
+    if (!params.pageSize || params.pageSize <= 0) {
+      params.pageSize = 10
     }
-    if (!q) {
-      q = ''
+    if (!params.qkey) {
+      params.qkey = ''
     }
     return new Promise((resolve, reject) => {
-      choices(choiceCode, q, cp, ps).then(response => {
+      choices(params.choiceCode, params.qkey, params.currentPage, params.pageSize).then(response => {
         resolve(response)
       }).catch(error => reject(error))
     })
