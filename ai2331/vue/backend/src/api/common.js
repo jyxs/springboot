@@ -20,3 +20,15 @@ export function lookupNames(groupCode, codes) {
     }
   })
 }
+
+export function choices(choiceCode, q, cp, ps) {
+  return request({
+    url: `/util/chioce/grid/${choiceCode}`,
+    method: 'get',
+    params: {
+      q,
+      cp,
+      ps
+    }
+  })
+}

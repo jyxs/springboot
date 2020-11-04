@@ -35,7 +35,7 @@
 <script>
 export default {
   props: {
-    tableDatas: {
+    choiceDatas: {
       type: Array,
       default: () => {
         return []
@@ -52,12 +52,10 @@ export default {
     }
   },
   mounted() {
-    console.info('1111111111111111')
     this.initSelected()
   },
   methods: {
     toggleSelection(rows) {
-      console.info(rows)
       if (rows) {
         rows.forEach(row => {
           this.$refs.multipleTable.toggleRowSelection(row)
@@ -70,7 +68,6 @@ export default {
       this.multipleSelection = val
     },
     initSelected() {
-      console.info(this.selected)
       if (this.selected) {
         var s = this.selected.split(',')
         for (var i = 0; i < s.length; i++) {

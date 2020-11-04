@@ -19,6 +19,7 @@ service.interceptors.request.use(
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
       config.headers['ai2331_token'] = getToken()
+      config.headers['Access-Control-Allow-Origin'] = '*'
       // console.info(11111)
       // console.info(config.headers['ai2331_token'])
     }

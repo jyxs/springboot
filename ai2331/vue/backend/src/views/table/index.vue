@@ -1,5 +1,8 @@
-<template />
-
+<template>
+  <div>
+    <Choice :is-single="true" :table-datas="tableDatas" choice-code="corp_all" />
+  </div>
+</template>
 <script>
 import Choice from '@/components/choice/index'
 export default {

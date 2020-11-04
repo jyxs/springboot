@@ -2,32 +2,21 @@
   <div class="app-container">
     <el-table
       ref="refTable"
-      :data="tableDatas"
+      :data="choiceDatas.tableDatas"
+      fix
       stripe
       border
       style="width: 100%"
-      max-height="600"
+      :max-height="tableH"
       highlight-current-row
       @current-change="handleChange"
     >
       <el-table-column
-        prop="id"
-        label="ID"
+        v-for="data in choiceDatas.headers"
+        :key="data.id"
+        :prop="data.id"
+        :label="data.label"
         width="80"
-      />
-      <el-table-column
-        prop="date"
-        label="日期"
-        width="180"
-      />
-      <el-table-column
-        prop="name"
-        label="姓名"
-        width="180"
-      />
-      <el-table-column
-        prop="address"
-        label="地址"
       />
     </el-table>
   </div>
@@ -36,15 +25,20 @@
 <script>
 export default {
   props: {
-    tableDatas: {
-      type: Array,
-      default: () => {
-        return []
-      }
+    choiceDatas: {
+      type: Object,
+      default: null
     },
     selected: {
       type: String,
       default: ''
+    }
+  },
+  data() {
+    return {
+      tableH: 600,
+      tableHeader: {},
+      talbeDatas: {}
     }
   },
   created() {
@@ -52,12 +46,15 @@ export default {
   },
   mounted() {
     this.initSelected()
+    this.tableH = window.innerHeight - 150
+    console.info('111')
+    console.info(this.choiceDatas)
   },
   methods: {
     handleChange(val) {
-      console.info('1')
-      console.info(val)
-      // this.$emit('valueChange', val)
+      // console.info('1')
+      // console.info(val)
+      this.$emit('valueChange', val)
     },
     initSelected() {
       if (this.selected) {
